@@ -1,0 +1,16 @@
+%h1 物件の新規登録
+
+.nav.justify-content-end
+  = link_to '一覧', buildings_path, class: 'nav-link'
+
+= form_with model: @building, local: true do |f|
+  .form-grup
+    = f.label :name
+    = f.text_field :name, class: 'form-control', id: 'building_name'
+  .form-group
+    = f.label :address
+    = f.text_field :address, class: 'form-control', id: 'building_address'
+  .form-group
+    = f.label :room_number
+    = f.text_field :room_number, class: 'form-control', id: 'building_room_number'
+  = f.submit '登録する', class: 'btn btn-primary'

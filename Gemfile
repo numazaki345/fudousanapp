@@ -73,3 +73,6 @@ end
 
 gem 'haml-rails'
 gem 'erb2haml'
+gem 'bootstrap'
+gem 'mini_racer'
+gem 'pry-rails'
