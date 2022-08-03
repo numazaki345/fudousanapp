@@ -1,0 +1,2 @@
+class Madori < ApplicationRecord
+end

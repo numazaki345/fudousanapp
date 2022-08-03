@@ -1,0 +1,18 @@
+%h1 物件一覧
+
+= link_to '新規登録', new_madori_path, class: 'btn btn-primary'
+
+.md-3
+%table.table.table-hover
+  %thead.thead-default
+    %tr
+      %th= Madori.human_attribute_name('賃料')
+      %th= Madori.human_attribute_name('平米数')
+  %tbody
+    - @madoris.each do |madori|
+      %tr
+        %td= link_to madori.rent + "円", madori
+        %td= madori.square + "㎡"
+        %td= madori.created_at
+        %td
+          = button_to '削除', madori, method: :delete, class: 'btn btn-danger'
