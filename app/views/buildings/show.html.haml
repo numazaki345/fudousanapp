@@ -11,14 +11,14 @@
       %th= Building.human_attribute_name('住所')
       %td= @building.address
     %tr
-      %th= Building.human_attribute_name('部屋番号')
-      %td= @building.room_number
-    %tr
       %th= Building.human_attribute_name('登録日')
       %td= @building.created_at
     %tr
       %th= Building.human_attribute_name('更新日')
       %td= @building.updated_at
+    %tr
+      %th= Madori.human_attribute_name('賃料')
+      %td= @madoris.rent
 
 = button_to '削除', @building, method: :delete, class: 'btn btn-danger'
 

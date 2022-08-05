@@ -3,7 +3,6 @@ class CreateBuildings < ActiveRecord::Migration[7.0]
     create_table :buildings do |t|
       t.string :name,        null: false
       t.string :address,     null: false
-      t.string :room_number, null: false
 
       t.timestamps
     end

@@ -6,14 +6,12 @@
 %table.table.table-hover
   %thead.thead-default
     %tr
-      %th= Building.human_attribute_name('物件名')
       %th= Building.human_attribute_name('住所')
       %th= Building.human_attribute_name('登録日')
   %tbody
     - @buildings.each do |building|
       %tr
-        %td= link_to building.name, building
-        %td= building.address
+        %td= link_to building.address, building
         %td= building.created_at
         %td
           = button_to '削除', building, method: :delete, class: 'btn btn-danger'

@@ -8,11 +8,13 @@
     %tr
       %th= Madori.human_attribute_name('賃料')
       %th= Madori.human_attribute_name('平米数')
+      %th= Madori.human_attribute_name('部屋番号')
   %tbody
     - @madoris.each do |madori|
       %tr
         %td= link_to madori.rent + "円", madori
         %td= madori.square + "㎡"
+        %td= madori.room_number
         %td= madori.created_at
         %td
           = button_to '削除', madori, method: :delete, class: 'btn btn-danger'

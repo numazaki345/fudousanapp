@@ -11,6 +11,9 @@
       %th= Madori.human_attribute_name('平米数')
       %td= @madori.square + "㎡"
     %tr
+      %th= Madori.human_attribute_name('部屋番号')
+      %td= @madori.room_number
+    %tr
       %th= Madori.human_attribute_name('登録日')
       %td= @madori.created_at
     %tr

@@ -5,6 +5,7 @@ class BuildingsController < ApplicationController
 
   def show
     @building = Building.find(params[:id])
+    @madoris = Madori.all
   end
 
   def new
