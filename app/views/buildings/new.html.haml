@@ -5,9 +5,9 @@
 
 = form_with model: @building, local: true do |f|
   .form-grup
-    = f.label :name
+    = f.label '物件名'
     = f.text_field :name, class: 'form-control', id: 'building_name'
   .form-group
-    = f.label :address
+    = f.label '住所'
     = f.text_field :address, class: 'form-control', id: 'building_address'
   = f.submit '登録する', class: 'btn btn-primary'

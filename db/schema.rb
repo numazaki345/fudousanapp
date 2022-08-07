@@ -22,8 +22,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_03_222357) do
     t.string "rent", null: false
     t.string "square", null: false
     t.string "room_number", null: false
+    t.bigint "building_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["building_id", "created_at"], name: "index_madoris_on_building_id_and_created_at"
+    t.index ["building_id"], name: "index_madoris_on_building_id"
   end
 
+  add_foreign_key "madoris", "buildings"
 end

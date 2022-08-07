@@ -16,9 +16,33 @@
     %tr
       %th= Building.human_attribute_name('更新日')
       %td= @building.updated_at
-    %tr
-      %th= Madori.human_attribute_name('賃料')
-      %td= @madoris.rent
-
 = button_to '削除', @building, method: :delete, class: 'btn btn-danger'
+-# = link_to '新規登録', new_madori_path(building_id: @building.id), class: 'btn btn-primary'
+
+-# %h2 物件概要
+-# - @building.madoris.each do |madori|
+-#   %table.table.table-hover
+-#     %tbody
+-#       %tr
+-#         %th= Madori.human_attribute_name('賃料')
+-#         %td= madori.rent + "円"
+-#       %tr
+-#         %th= Madori.human_attribute_name('平米数')
+-#         %td= madori.square + "㎡"
+-#       %tr
+-#         %th= Madori.human_attribute_name('部屋番号')
+-#         %td= madori.room_number
+
+= form_with(model: [ @building, @building.madoris.build ], local: true) do |f|
+  .form-grup
+    = f.label '賃料'
+    = f.number_field :rent, class: 'form-control', id: 'madori_rent'
+  .form-group
+    = f.label '平米数'
+    = f.number_field :square, class: 'form-control', id: 'madori_square'
+  .form-group
+    = f.label '部屋番号'
+    = f.text_field :room_number, class: 'form-control', id: 'madori_room_number'
+  = f.submit '登録する', class: 'btn btn-primary'
+
 

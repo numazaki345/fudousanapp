@@ -4,14 +4,22 @@
 
 .md-3
 %table.table.table-hover
-  %thead.thead-default
-    %tr
-      %th= Building.human_attribute_name('住所')
-      %th= Building.human_attribute_name('登録日')
   %tbody
     - @buildings.each do |building|
       %tr
-        %td= link_to building.address, building
+        %td= '物件名'
+        %td= '登録日'
+      %tr
+        %td= link_to building.name, building
         %td= building.created_at
-        %td
-          = button_to '削除', building, method: :delete, class: 'btn btn-danger'
+        %td= button_to '削除', building, method: :delete, class: 'btn btn-danger'
+      %tr
+        %th= '賃料'
+        %th= '平米数'
+        %th= '部屋番号'
+      - building.madoris.each do |madori|
+        %tr
+          %td= madori.rent
+          %td= madori.square
+          %td= madori.room_number
+          %td= link_to '詳細', madori, class: 'btn btn-primary'

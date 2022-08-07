@@ -1,11 +1,10 @@
 class BuildingsController < ApplicationController
   def index
-    @buildings = Building.all
+    @buildings = Building.all.includes(:madoris)
   end
 
   def show
     @building = Building.find(params[:id])
-    @madoris = Madori.all
   end
 
   def new

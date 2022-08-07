@@ -5,6 +5,7 @@ class MadorisController < ApplicationController
 
   def show
     @madori = Madori.find(params[:id])
+    @buildings = Building.all
   end
 
   def new
@@ -12,9 +13,9 @@ class MadorisController < ApplicationController
   end
 
   def create
-    madori = Madori.new(madori_params)
-    madori.save!
-    redirect_to madoris_url, notice: "間取りを登録しました。"
+    @building = Building.find(params[:building_id])
+    @madori = @building.madoris.create(madori_params)
+    redirect_to buildings_url, notice: "間取りを登録しました。"
   end
 
   def destroy
@@ -26,6 +27,6 @@ class MadorisController < ApplicationController
   private
 
     def madori_params
-      params.require(:madori).permit(:rent, :square, :room_number)
+      params.require(:madori).permit(:rent, :square, :room_number, :building_id)
     end
 end

@@ -1,3 +1,3 @@
 class Madori < ApplicationRecord
-  belongs_to :building, optional: true
+  belongs_to :building
 end

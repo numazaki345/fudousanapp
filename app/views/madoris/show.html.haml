@@ -4,6 +4,30 @@
   = link_to '一覧', madoris_path, class: 'nav-link'
 %table.table.table-hover
   %tbody
+    - @buildings.each do |building|
+      %tr
+        %th= Building.human_attribute_name('物件名')
+        %td= building.name
+      %tr
+        %th= Building.human_attribute_name('住所')
+        %td= building.address
+      %tr
+        %th= Building.human_attribute_name('登録日')
+        %td= building.created_at
+      %tr
+        %th= Building.human_attribute_name('更新日')
+        %td= building.updated_at
+    -# %tr
+    -#   %th= Building.human_attribute_name('住所')
+    -#   %td= @building.address
+    -# %tr
+    -#   %th= Building.human_attribute_name('登録日')
+    -#   %td= @building.created_at
+    -# %tr
+    -#   %th= Building.human_attribute_name('更新日')
+    -#   %td= @building.updated_at
+%table.table.table-hover
+  %tbody
     %tr
       %th= Madori.human_attribute_name('賃料')
       %td= @madori.rent + "円"
