@@ -7,10 +7,12 @@
   %tbody
     - @buildings.each do |building|
       %tr
+        %td= '外観画像'
         %td= '物件名'
         %td= '住所'
         %td= '情報登録日'
       %tr
+        %td= image_tag building.image, size: '135x180' if building.image.attached?
         %td= building.name
         %td= building.prefectures + building.address
         %td= building.created_at.strftime('%Y/%m/%d')

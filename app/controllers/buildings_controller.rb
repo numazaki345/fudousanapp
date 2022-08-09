@@ -26,6 +26,6 @@ class BuildingsController < ApplicationController
   private
 
     def building_params
-      params.require(:building).permit(:name, :zipcode, :prefectures, :address)
+      params.require(:building).permit(:name, :zipcode, :prefectures, :address, :image)
     end
 end
