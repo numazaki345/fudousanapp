@@ -8,18 +8,23 @@
     - @buildings.each do |building|
       %tr
         %td= '物件名'
-        %td= '登録日'
+        %td= '住所'
+        %td= '情報登録日'
       %tr
-        %td= link_to building.name, building
-        %td= building.created_at
+        %td= building.name
+        %td= building.prefectures + building.address
+        %td= building.created_at.strftime('%Y/%m/%d')
+        %td
+          = link_to '追加', building, class: 'btn btn-primary'
         %td= button_to '削除', building, method: :delete, class: 'btn btn-danger'
       %tr
         %th= '賃料'
         %th= '平米数'
         %th= '部屋番号'
-      - building.madoris.each do |madori|
+      - building.rooms.each do |room|
         %tr
-          %td= madori.rent
-          %td= madori.square
-          %td= madori.room_number
-          %td= link_to '詳細', madori, class: 'btn btn-primary'
+          %td= room.rent
+          %td= room.square
+          %td= room.room_number
+          %td= link_to '詳細', room, class: 'btn btn-primary'
+          %td= button_to '削除', room, method: :delete, class: 'btn btn-danger'

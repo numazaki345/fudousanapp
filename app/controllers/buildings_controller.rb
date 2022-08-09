@@ -1,6 +1,6 @@
 class BuildingsController < ApplicationController
   def index
-    @buildings = Building.all.includes(:madoris)
+    @buildings = Building.all.includes(:rooms)
   end
 
   def show
@@ -26,6 +26,6 @@ class BuildingsController < ApplicationController
   private
 
     def building_params
-      params.require(:building).permit(:name, :address, :room_number)
+      params.require(:building).permit(:name, :zipcode, :prefectures, :address)
     end
 end

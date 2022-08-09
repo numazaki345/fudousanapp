@@ -3,11 +3,33 @@
 .nav.justify-content-end
   = link_to '一覧', buildings_path, class: 'nav-link'
 
-= form_with model: @building, local: true do |f|
-  .form-grup
-    = f.label '物件名'
-    = f.text_field :name, class: 'form-control', id: 'building_name'
-  .form-group
-    = f.label '住所'
-    = f.text_field :address, class: 'form-control', id: 'building_address'
-  = f.submit '登録する', class: 'btn btn-primary'
+.container.mt-5.p-lg-5.bg-light
+  = form_with model: @building, local: true do |f|
+    / 氏名
+    .form-group.row
+      .md-5.mb-5
+        = f.label '物件名'
+        = f.text_field :name, class: 'form-control', id: 'building_name', :placeholder => "物件名", :required => "", :type => "text"
+    / 住所
+    .form-row
+      .col-md-3.mb-3
+        = f.label '郵便番号(7桁)'
+        = f.text_field :zipcode, class: 'form-control', id: 'building_name', :maxlength => "8", :onkeyup => "AjaxZip3.zip2addr(this,'','pref01','addr01');", :placeholder => "1030013", :required => "", :type => "text"
+      .col-md-3.mb-3
+        = f.label '都道府県'
+        = f.text_field :prefectures, class: 'form-control', id: 'building_name', :placeholder => "東京都", :required => "", :type => "text"
+      .col-md-6.mb-5
+        = f.label '住所'
+        = f.text_field :address, class: 'form-control', id: 'building_name', :placeholder => "中央区日本橋人形町", :required => "", :type => "text"
+    / /住所
+    / ファイル選択
+    -# .col-md-3.mb-5
+    -#   = f.label '外観画像を登録してください', class: 'custom-file-labelpb-3 pb-3', :for => "customFile"
+    -#   = f.text_field :name, class: 'custom-file-input', class: 'pb-3', :required => "", :type => "file"
+    / /ファイル選択
+    / ボタンブロック
+    .form-group.row
+      .col-sm-12
+        = f.submit '登録する', class: 'btn btn-primary btn-block col-sm-12'
+    / /ボタンブロック
+    / /container

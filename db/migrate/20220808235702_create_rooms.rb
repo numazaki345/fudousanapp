@@ -1,6 +1,6 @@
-class CreateMadoris < ActiveRecord::Migration[7.0]
+class CreateRooms < ActiveRecord::Migration[7.0]
   def change
-    create_table :madoris do |t|
+    create_table :rooms do |t|
       t.string :rent,    null: false
       t.string :square,  null: false
       t.string :room_number, null: false
@@ -8,6 +8,5 @@ class CreateMadoris < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
-    add_index :madoris, [:building_id, :created_at]
   end
 end

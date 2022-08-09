@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   root to: 'buildings#index'
   resources :buildings
-  resources :madoris
+  resources :rooms, only: [:show, :destroy]
 
   resources :buildings do
-    resources :madoris
+    resources :rooms, only: [:create]
   end
 end

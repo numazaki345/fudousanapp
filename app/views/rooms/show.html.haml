@@ -1,0 +1,29 @@
+%h1 物件詳細
+
+.nav.justify-content-end
+  = link_to '一覧', buildings_path, class: 'nav-link'
+%table.table.table-hover
+  %tbody
+    %tr
+      %th= '物件名'
+      %td= @building.name
+    %tr
+      %th= '所在地'
+      %td= @building.prefectures + @building.address
+%table.table.table-hover
+  %tbody
+    %tr
+      %th= '賃料'
+      %td= @room.rent + "円"
+    %tr
+      %th= '平米数'
+      %td= @room.square + "㎡"
+    %tr
+      %th= '部屋番号'
+      %td= @room.room_number
+    %tr
+      %th= '情報登録日'
+      %td= @room.created_at.strftime('%Y/%m/%d')
+
+= button_to '削除', @room, method: :delete, class: 'btn btn-danger'
+
