@@ -1,24 +1,32 @@
-%h1 物件詳細
+%h1 部屋の登録
 
-.nav.justify-content-end
-  = link_to '一覧', buildings_path, class: 'nav-link'
-%table.table.table-hover
-  %tbody
-    %tr
-      %th= Building.human_attribute_name('物件名')
-      %td= @building.name
-    %tr
-      %th= Building.human_attribute_name('住所')
-      %td= @building.address
-    %tr
-      %th= Building.human_attribute_name('部屋番号')
-      %td= @building.room_number
-    %tr
-      %th= Building.human_attribute_name('登録日')
-      %td= @building.created_at
-    %tr
-      %th= Building.human_attribute_name('更新日')
-      %td= @building.updated_at
+.container.mt-5.p-lg-5.bg-light
+  = form_with(model: [ @building, @building.rooms.build ], local: true) do |f|
+    / 氏名
+    .form-group.row
+      .md-5.mb-5
+        = f.label '賃料'
+        = f.text_field :rent, class: 'form-control', id: 'room_rent', :placeholder => "70000", :required => "", :type => "text"
+    / 住所
+    .form-group.row
+      .md-5.mb-5
+        = f.label '平米数'
+        = f.text_field :square, class: 'form-control', id: 'room_square', :placeholder => "20㎡", :required => "", :type => "text"
+    .form-group.row
+      .md-5.mb-5
+        = f.label '部屋番号'
+        = f.text_field :room_number, class: 'form-control', id: 'room_room_number', :placeholder => "101", :required => "", :type => "text"
+    / /住所
+    / ファイル選択
+    -# .col-md-3.mb-5
+    -#   = f.label '外観画像を登録してください', class: 'custom-file-labelpb-3 pb-3', :for => "customFile"
+    -#   = f.text_field :name, class: 'custom-file-input', class: 'pb-3', :required => "", :type => "file"
+    / /ファイル選択
+    / ボタンブロック
+    .form-group.row
+      .col-sm-12
+        = f.submit '登録する', class: 'btn btn-primary btn-block col-sm-12'
+    / /ボタンブロック
+    / /container
 
-= button_to '削除', @building, method: :delete, class: 'btn btn-danger'
 
