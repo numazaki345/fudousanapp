@@ -2,6 +2,13 @@
 
 .nav.justify-content-end
   = link_to '一覧', buildings_path, class: 'nav-link'
+
+%ul
+  %li
+    %p= '部屋画像'
+    - @images.each do |image|
+      = image_tag(image, width:100)
+
 %table.table.table-hover
   %tbody
     %tr

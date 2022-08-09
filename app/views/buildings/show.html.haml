@@ -18,9 +18,9 @@
         = f.text_field :room_number, class: 'form-control', id: 'room_room_number', :placeholder => "101", :required => "", :type => "text"
     / /住所
     / ファイル選択
-    -# .col-md-3.mb-5
-    -#   = f.label '外観画像を登録してください', class: 'custom-file-labelpb-3 pb-3', :for => "customFile"
-    -#   = f.text_field :name, class: 'custom-file-input', class: 'pb-3', :required => "", :type => "file"
+    .mb-5.form-group
+      = f.label '画像を登録してください', class: 'custom-file-labelpb-3 pb-3'
+      = f.file_field :images, class: 'form-control', :required => "", multiple: true
     / /ファイル選択
     / ボタンブロック
     .form-group.row

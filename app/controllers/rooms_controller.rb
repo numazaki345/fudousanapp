@@ -1,6 +1,7 @@
 class RoomsController < ApplicationController
   def show
     @room = Room.find(params[:id])
+    @images = @room.images
     @building = @room.building
   end
 
@@ -18,6 +19,6 @@ class RoomsController < ApplicationController
 
   private
   def room_params
-    params.require(:room).permit(:rent, :square, :room_number)
+    params.require(:room).permit(:rent, :square, :room_number, images: [])
   end
 end

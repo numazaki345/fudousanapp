@@ -23,9 +23,9 @@
         = f.text_field :address, class: 'form-control', id: 'building_name', :placeholder => "中央区日本橋人形町", :required => "", :type => "text"
     / /住所
     / ファイル選択
-    -# .col-md-3.mb-5
-    -#   = f.label '外観画像を登録してください', class: 'custom-file-labelpb-3 pb-3', :for => "customFile"
-    -#   = f.text_field :name, class: 'custom-file-input', class: 'pb-3', :required => "", :type => "file"
+    .mb-5.form-group
+      = f.label '外観画像を登録してください', class: 'custom-file-labelpb-3 pb-3'
+      = f.file_field :image, class: 'form-control', :required => ""
     / /ファイル選択
     / ボタンブロック
     .form-group.row
