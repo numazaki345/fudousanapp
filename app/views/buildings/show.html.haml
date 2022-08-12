@@ -6,12 +6,12 @@
     .form-group.row
       .md-5.mb-5
         = f.label '賃料'
-        = f.text_field :rent, class: 'form-control', id: 'room_rent', :placeholder => "70000", :required => "", :type => "text"
+        = f.number_field :rent, class: 'form-control', id: 'room_rent', :placeholder => "70000", :required => "", :type => "text"
     / 住所
     .form-group.row
       .md-5.mb-5
         = f.label '平米数'
-        = f.text_field :square, class: 'form-control', id: 'room_square', :placeholder => "20㎡", :required => "", :type => "text"
+        = f.number_field :square, step: "0.1", class: 'form-control', id: 'room_square', :placeholder => "20㎡", :required => "", :type => "text"
     .form-group.row
       .md-5.mb-5
         = f.label '部屋番号'

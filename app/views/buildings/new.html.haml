@@ -14,7 +14,7 @@
     .form-row
       .col-md-3.mb-3
         = f.label '郵便番号(7桁)'
-        = f.text_field :zipcode, class: 'form-control', id: 'building_name', :maxlength => "8", :onkeyup => "AjaxZip3.zip2addr(this,'','pref01','addr01');", :placeholder => "1030013", :required => "", :type => "text"
+        = f.text_field :zipcode, class: 'form-control', id: 'building_name', :maxlength => "7", :onkeyup => "AjaxZip3.zip2addr(this,'','pref01','addr01');", :placeholder => "1030013", :required => "", :type => "text"
       .col-md-3.mb-3
         = f.label '都道府県'
         = f.text_field :prefectures, class: 'form-control', id: 'building_name', :placeholder => "東京都", :required => "", :type => "text"

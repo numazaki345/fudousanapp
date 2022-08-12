@@ -1,6 +1,21 @@
 %h1 物件一覧
 
+= search_form_for @q, url: buildings_path, class: 'mb-5' do |f|
+  .form-group.row
+    .col-sm-10.mb-3
+      = f.search_field :name_or_rooms_rent_cont, class: 'form-control', :placeholder => "キーワードを入力"
+    .form-group
+      = f.submit class: 'btn btn-outline-primary'
+
 = link_to '新規登録', new_building_path, class: 'btn btn-primary'
+
+= form_with model: @building, url: @building, method: :get, local: true do |form|
+  = form.select :keyword, [ ['新しい順', 'latest'],
+                            ['古い順', 'old'],
+                            ['賃料が高い順', 'high'],
+                            ['賃料が低い順', 'row'],
+                          ]
+  = form.submit
 
 .md-3
 %table.table.table-hover
@@ -25,8 +40,8 @@
         %th= '部屋番号'
       - building.rooms.each do |room|
         %tr
-          %td= room.rent
-          %td= room.square
+          %td= room.rent + '円'
+          %td= room.square + '㎡'
           %td= room.room_number
           %td= link_to '詳細', room, class: 'btn btn-primary'
           %td= button_to '削除', room, method: :delete, class: 'btn btn-danger'

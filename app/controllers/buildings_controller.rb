@@ -1,6 +1,22 @@
 class BuildingsController < ApplicationController
+
   def index
-    @buildings = Building.all.includes(:rooms)
+    if 'latest' == params[:keyword]
+      @q = Building.latest.ransack(params[:q])
+      @buildings = @q.result(distinct: true)
+    elsif 'old' == params[:keyword]
+      @q = Building.old.ransack(params[:q])
+      @buildings = @q.result(distinct: true)
+    elsif 'high' == params[:keyword]
+      @q = Building.all.includes(:rooms).order("rooms.rent desc").ransack(params[:q])
+      @buildings = @q.result(distinct: true)
+    elsif 'row' == params[:keyword]
+      @q = Building.all.includes(:rooms).order("rooms.rent").ransack(params[:q])
+      @buildings = @q.result(distinct: true)
+    else
+      @q = Building.ransack(params[:q])
+      @buildings = @q.result(distinct: true)
+    end
   end
 
   def show
@@ -24,8 +40,7 @@ class BuildingsController < ApplicationController
   end
 
   private
-
-    def building_params
-      params.require(:building).permit(:name, :zipcode, :prefectures, :address, :image)
-    end
+  def building_params
+    params.require(:building).permit(:name, :zipcode, :prefectures, :address, :image)
+  end
 end
