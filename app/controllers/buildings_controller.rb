@@ -14,7 +14,7 @@ class BuildingsController < ApplicationController
       @q = Building.all.includes(:rooms).order("rooms.rent").ransack(params[:q])
       @buildings = @q.result(distinct: true)
     else
-      @q = Building.ransack(params[:q])
+      @q = Building.latest.ransack(params[:q])
       @buildings = @q.result(distinct: true)
     end
   end
@@ -41,6 +41,6 @@ class BuildingsController < ApplicationController
 
   private
   def building_params
-    params.require(:building).permit(:name, :zipcode, :prefectures, :address, :image)
+    params.require(:building).permit(:name, :zipcode, :prefectures, :image, :transportation, :completion, :floor_height, :building_type, :balcony_type, :structure_type, :city, :town_name)
   end
 end

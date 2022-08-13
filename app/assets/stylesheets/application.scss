@@ -1,5 +1,149 @@
 @import "bootstrap";
 
+body, select, textarea, th, td, li, a, input {
+  font-family: 'メイリオ','meiryo','ＭＳ Ｐゴシック','MS P Gothic','ヒラギノ角ゴ Pro','Hiragino Kaku Gothic Pro','Helvetica','sans-serif';
+}
+
+ul, ol {
+  list-style: none;
+}
+
+dd {
+  margin: 0;
+}
+
+select {
+  border: 1px solid #D9D9D9;
+  font-size: 12px;
+  padding: 7px 7px;
+  background-position: right center;
+}
+
+
 .container {
-  max-width: 1000px;
+  max-width: 900px;
+  margin-top: 50px;
+}
+.container dt {
+  display: inline-block;
+}
+.container dd {
+  display: inline-block;
+}
+
+// 新規登録
+.bg-light {
+  justify-content: space-around;
+}
+
+.col-md-3.d-flex.flex-row p {
+  margin: 0;
+  padding: 7px 0 0 0;
+  width: 70px;
+}
+
+
+// TOPページ
+.building_property {
+  border: 3px solid #ccc;
+  margin-top: 20px;
+  padding: 20px;
+}
+.building_property h2 {
+  padding: 10px;
+  border-left: 3px solid red;
+  background: #eee;
+  font-size: 1.5rem;
+}
+.administrator dd {
+  margin: 0 20px 0 0;
+}
+
+.building_detail {
+  display: flex;
+  margin-top: 20px;
+}
+.building_detail ul {
+  width: 100%;
+}
+.building_detail dl {
+  display: flex;
+  border-bottom: dotted;
+  padding-bottom: 20px;
+}
+.building_detail dt {
+  color: #fff;
+  background: #1B77B7;
+  padding: 3px 15px;
+  margin-right: 20px;
+}
+
+// TOP間取り
+.room_datail ol {
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+.room_datail ol li {
+  width: 200px;
+  border: 1px solid #ccc;
+  text-align: center;
+  background: #f5f5f5;
+}
+
+.room_datail ul {
+  display: flex;
+  padding: 10px 0px;
+  margin: 0;
+  border: 1px solid #ccc;
+}
+.room_datail ul li {
+  width: 200px;
+  text-align: center;
+  word-break: break-all;
+}
+.room_datail strong {
+  color: red;
+}
+
+
+// 詳細ページ
+.building_property h3 {
+  padding: 5px 0px 5px 10px;
+  border-left: 3px solid red;
+  background: #eee;
+  margin: 40px 0 20px 0;
+  font-size: 1rem;
+}
+.building_property img {
+  margin: 10px 3px;
+}
+.l-property_view_table {
+  margin-top: 15px;
+}
+.property_view_table {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #dbdbdb;
+  border-collapse: collapse;
+}
+.property_view_table-title {
+  background-color: #eeeeee;
+  width: 79px;
+  text-align: center;
+  padding: 10px;
+  border-right: 1px solid #dbdbdb;
+  border-top: 1px solid #dbdbdb;
+  border-collapse: collapse;
+  vertical-align: middle;
+}
+.property_view_table-body {
+  width: 245px;
+  padding: 10px;
+  box-sizing: border-box;
+  border-top: 1px solid #dbdbdb;
+  border-collapse: collapse;
+}
+.property_view_table-body strong {
+  color: red;
 }

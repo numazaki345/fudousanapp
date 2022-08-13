@@ -1,5 +1,3 @@
-%h1 物件一覧
-
 = search_form_for @q, url: buildings_path, class: 'mb-5' do |f|
   .form-group.row
     .col-sm-10.mb-3
@@ -7,41 +5,77 @@
     .form-group
       = f.submit class: 'btn btn-outline-primary'
 
-= link_to '新規登録', new_building_path, class: 'btn btn-primary'
+%dl
+  %dt 並び替え
+  %dd
+    = form_with model: @building, url: @building, method: :get, local: true do |form|
+      = form.select :keyword, [ ['新しい順', 'latest'],
+                                ['古い順', 'old'],
+                                ['賃料が高い順', 'high'],
+                                ['賃料が低い順', 'row'],
+                              ]
+      = form.submit
 
-= form_with model: @building, url: @building, method: :get, local: true do |form|
-  = form.select :keyword, [ ['新しい順', 'latest'],
-                            ['古い順', 'old'],
-                            ['賃料が高い順', 'high'],
-                            ['賃料が低い順', 'row'],
-                          ]
-  = form.submit
-
-.md-3
-%table.table.table-hover
-  %tbody
-    - @buildings.each do |building|
-      %tr
-        %td= '外観画像'
-        %td= '物件名'
-        %td= '住所'
-        %td= '情報登録日'
-      %tr
-        %td= image_tag building.image, size: '135x180' if building.image.attached?
-        %td= building.name
-        %td= building.prefectures + building.address
-        %td= building.created_at.strftime('%Y/%m/%d')
-        %td
-          = link_to '追加', building, class: 'btn btn-primary'
-        %td= button_to '削除', building, method: :delete, class: 'btn btn-danger'
-      %tr
-        %th= '賃料'
-        %th= '平米数'
-        %th= '部屋番号'
+- @buildings.each do |building|
+  .building_property
+    %h2= building.name
+    .building_detail
+      = image_tag building.image, size: '320x240' if building.image.attached?
+      %ul
+        %li
+          %dl
+            %dt 住所
+            %dd
+              = building.prefectures + building.town_name + building.city + building.town_name
+        %li
+          %dl
+            %dt 交通
+            %dd
+              = building.transportation
+        %li
+          %dl
+            %dt 築年
+            %dd= building.completion + '年'
+        %li
+          %dl
+            %dt 階数
+            %dd= building.floor_height + '階建'
+        %li
+          %dl
+            %dt 種別
+            %dd= building.building_type
+        %li
+          %dl
+            %dt 構造
+            %dd= building.structure_type
+        %li
+          %dl
+            %dt 向き
+            %dd= building.balcony_type
+        %li
+          %dl.administrator
+            %dt 管理者
+            %dd= link_to '部屋追加', building, class: 'btn btn-primary btn-sm'
+            %dd= button_to '物件削除', building, method: :delete, class: 'btn btn-danger btn-sm'
+    .room_datail
+      %ol
+        %li 賃料
+        %li 間取り
+        %li 専有面積
+        %li 所在階
+        %li 詳細
+        %li 部屋削除
       - building.rooms.each do |room|
-        %tr
-          %td= room.rent + '円'
-          %td= room.square + '㎡'
-          %td= room.room_number
-          %td= link_to '詳細', room, class: 'btn btn-primary'
-          %td= button_to '削除', room, method: :delete, class: 'btn btn-danger'
+        %ul
+          %li
+            %strong= room.rent + '円'
+          %li= room.madori
+          %li
+            = room.square + '㎡'
+          %li
+            = room.floor
+            階
+          %li
+            %a= link_to '詳細を見る', room
+          %li
+            %a= button_to '削除', room, method: :delete, class: 'btn btn-danger btn-sm'
