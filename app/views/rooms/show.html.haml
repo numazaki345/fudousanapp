@@ -1,36 +1,75 @@
-%h1 物件詳細
+.building_property
+  %h2= @building.name
 
-.nav.justify-content-end
-  = link_to '一覧', buildings_path, class: 'nav-link'
+  %ul
+    %li
+      - @images.each do |image|
+        = image_tag(image, width:180, height:100)
+  .property_view_table
+    %table.property_view_table
+      %tbody
+        %tr
+          %th.property_view_table-title
+            = '所在地'
+          %td.property_view_table-body{:colspan => "3"}
+            = @building.prefectures + @building.town_name + @building.city + @building.town_name
+        %tr
+          %th.property_view_table-title
+            = '交通情報'
+          %td.property_view_table-body{:colspan => "3"}
+            = @building.transportation
+        %tr
+          %th.property_view_table-title
+            = '築年数'
+          %td.property_view_table-body
+            = @building.completion + '年'
+          %th.property_view_table-title
+            = '向き'
+          %td.property_view_table-body
+            = @building.balcony_type
+        %tr
+          %th.property_view_table-title
+            = '建物種別'
+          %td.property_view_table-body
+            = @building.building_type
+          %th.property_view_table-title
+            = '建物構造'
+          %td.property_view_table-body
+            = @building.structure_type
+        %tr
+          %th.property_view_table-title
+            = '所在階'
+          %td.property_view_table-body
+            = @room.floor + '階'
+          %th.property_view_table-title
+            = '階建'
+          %td.property_view_table-body
+            = @building.floor_height + '階建'
 
-%ul
-  %li
-    %p= '部屋画像'
-    - @images.each do |image|
-      = image_tag(image, width:100)
-
-%table.table.table-hover
-  %tbody
-    %tr
-      %th= '物件名'
-      %td= @building.name
-    %tr
-      %th= '所在地'
-      %td= @building.prefectures + @building.address
-%table.table.table-hover
-  %tbody
-    %tr
-      %th= '賃料'
-      %td= @room.rent + "円"
-    %tr
-      %th= '平米数'
-      %td= @room.square + "㎡"
-    %tr
-      %th= '部屋番号'
-      %td= @room.room_number
-    %tr
-      %th= '情報登録日'
-      %td= @room.created_at.strftime('%Y/%m/%d')
-
-= button_to '削除', @room, method: :delete, class: 'btn btn-danger'
-
+  %h3 物件概要
+  .property_view_table
+    %table.property_view_table
+      %tbody
+        %tr
+          %th.property_view_table-title
+            = '賃料'
+          %td.property_view_table-body{:colspan => "3"}
+            %strong= @room.rent + '円'
+        %tr
+          %th.property_view_table-title
+            = '専有面積'
+          %td.property_view_table-body
+            = @room.square + "㎡"
+          %th.property_view_table-title
+            = '部屋番号'
+          %td.property_view_table-body
+            = @room.room_number
+        %tr
+          %th.property_view_table-title
+            = '間取り'
+          %td.property_view_table-body
+            = @room.madori
+          %th.property_view_table-title
+            = '情報登録日'
+          %td.property_view_table-body
+            = @room.created_at.strftime('%Y/%m/%d')

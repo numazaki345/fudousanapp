@@ -43,7 +43,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_09_011325) do
     t.string "name", null: false
     t.string "zipcode", null: false
     t.string "prefectures", null: false
-    t.string "address", null: false
+    t.string "transportation", null: false
+    t.string "completion", null: false
+    t.string "floor_height", null: false
+    t.string "building_type", null: false
+    t.string "balcony_type", null: false
+    t.string "structure_type", null: false
+    t.string "city", null: false
+    t.string "town_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -52,6 +59,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_09_011325) do
     t.string "rent", null: false
     t.string "square", null: false
     t.string "room_number", null: false
+    t.string "madori", null: false
+    t.string "floor", null: false
     t.bigint "building_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
