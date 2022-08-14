@@ -17,3 +17,5 @@
       - if flash.notice.present?
         .alert.alert-success= flash.notice
       = yield
+      %p.notice= notice
+      %p.alert= alert
