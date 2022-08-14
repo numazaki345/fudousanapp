@@ -1,5 +1,6 @@
 class Building < ApplicationRecord
   has_many :rooms, dependent: :destroy
+  belongs_to :user
   has_one_attached :image
 
   scope :latest, -> {order(created_at: :desc)}

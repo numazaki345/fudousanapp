@@ -1,5 +1,10 @@
 FROM ruby:3.1
 
+RUN apt-get update -qq && \
+    apt-get install -y build-essential \
+                       nodejs \
+                       vim
+
 RUN mkdir /myapp
 WORKDIR /myapp
 COPY Gemfile /myapp/Gemfile

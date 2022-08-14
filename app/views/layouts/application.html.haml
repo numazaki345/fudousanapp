@@ -2,7 +2,7 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title Myapp
+    %title 不動産アプリ
     %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
     = csrf_meta_tags
     = csp_meta_tag
@@ -10,9 +10,20 @@
   %body
     .app-title.navbar.navbar-expand-md.navbar-light.bg-light
       .navbar-brand 不動産アプリ
-      .nav.justify-content-end
-        = link_to 'TOPページ', buildings_path, class: 'nav-link'
-        = link_to '新規登録', new_building_path, class: 'btn btn-primary'
+
+      %ul.navbar-nav.ml-auto
+        - if current_user
+          %li.nav-item= link_to '新規登録', new_building_path, class: 'btn btn-primary'
+          %li.nav-item= link_to 'TOPページ', buildings_path, class: 'nav-link'
+          - if current_user.admin?
+            %li.nav-item= link_to 'ユーザー', admin_users_path, class: 'nav-link'
+          %li.nav-item= button_to 'ログアウト', logout_path, method: :delete, class: 'nav-link'
+        - else
+          %li.nav-item= link_to '会員登録', new_admin_user_path, class: 'nav-link'
+          %li.nav-item= link_to 'ログイン', login_path, class: 'nav-link'
+      -# .nav.justify-content-end
+      -#   = link_to 'TOPページ', buildings_path, class: 'nav-link'
+      -#   = link_to '新規登録', new_building_path, class: 'btn btn-primary'
     .container
       - if flash.notice.present?
         .alert.alert-success= flash.notice
