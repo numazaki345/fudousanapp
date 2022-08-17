@@ -28,9 +28,13 @@ class BuildingsController < ApplicationController
   end
 
   def create
-    building = Building.new(building_params)
-    building.save!
-    redirect_to buildings_url, notice: "物件#{building.name}を登録しました。"
+    @building = current_user.buildings.new(building_params)
+
+    if @building.save!
+      redirect_to buildings_url, notice: "物件#{@building.name}を登録しました。"
+    else
+      render :new
+    end
   end
 
   def destroy

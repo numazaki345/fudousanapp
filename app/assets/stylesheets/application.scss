@@ -147,3 +147,56 @@ select {
 .property_view_table-body strong {
   color: red;
 }
+
+// ログインtop
+.sessionsLayoutHeader {
+  box-sizing: inherit;
+}
+.sessionsLayoutHeader_title {
+  margin: 30px 0;
+  letter-spacing: 1px;
+  font-size: 36px;
+  font-weight: 400;
+}
+.text-center {
+  text-align: center;
+}
+
+//SNSログイン
+.btn-google-inverse {
+  background-color: #c6594b;
+  border-color: #a94335;
+}
+.btn-block {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+}
+.btn-lg {
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 3px;
+}
+.btn-google-inverse:hover {
+  background-color: #c6594b;
+  border-color: #a94335;
+}
+.btn-google-inverse a {
+  text-decoration: none;
+  color: #fff;
+}
+.sessionsLayout_guide {
+  color: #999;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+.sessionsLayoutFormColumn {
+  border-left: 1px solid #eee;
+  overflow: hidden;
+}
+.login_btn {
+  width: 100%;
+}
