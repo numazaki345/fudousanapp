@@ -75,5 +75,10 @@ gem 'haml-rails'
 gem 'erb2haml'
 gem 'bootstrap'
 gem 'mini_racer'
-gem 'pry-byebug'
-gem 'ransack'
+gem 'pry-byebug' #デバック
+gem 'ransack' #検索機能
+gem 'devise' #ユーザー認証
+gem 'devise-i18n' #deviseの日本語化
+gem 'dotenv-rails' #環境変数
+gem 'omniauth-google-oauth2' #google認証
+

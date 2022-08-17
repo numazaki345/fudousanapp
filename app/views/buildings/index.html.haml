@@ -14,7 +14,7 @@
                                 ['賃料が高い順', 'high'],
                                 ['賃料が低い順', 'row'],
                               ]
-      = form.submit
+      = form.submit 'save'
 
 - @buildings.each do |building|
   .building_property
@@ -52,11 +52,12 @@
           %dl
             %dt 向き
             %dd= building.balcony_type
-        %li
-          %dl.administrator
-            %dt 管理者
-            %dd= link_to '部屋追加', building, class: 'btn btn-primary btn-sm'
-            %dd= button_to '物件削除', building, method: :delete, class: 'btn btn-danger btn-sm'
+        - if current_user.id == building.user_id
+          %li
+            %dl.administrator
+              %dt 管理者
+              %dd= link_to '部屋追加', building, class: 'btn btn-primary btn-sm'
+              %dd= button_to '物件削除', building, method: :delete, class: 'btn btn-danger btn-sm'
     .room_datail
       %ol
         %li 賃料
@@ -64,7 +65,8 @@
         %li 専有面積
         %li 所在階
         %li 詳細
-        %li 部屋削除
+        - if current_user.id == building.user_id
+          %li 部屋削除
       - building.rooms.each do |room|
         %ul
           %li
@@ -77,5 +79,6 @@
             階
           %li
             %a= link_to '詳細を見る', room
-          %li
-            %a= button_to '削除', room, method: :delete, class: 'btn btn-danger btn-sm'
+          - if current_user.id == building.user_id
+            %li
+              %a= button_to '削除', room, method: :delete, class: 'btn btn-danger btn-sm'
