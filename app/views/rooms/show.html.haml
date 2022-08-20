@@ -1,5 +1,6 @@
 .building_property
-  %h2= @building.name
+  .building_header
+    %h2= @building.name
 
   %ul
     %li
@@ -22,7 +23,7 @@
           %th.property_view_table-title
             = '築年数'
           %td.property_view_table-body
-            = @building.completion + '年'
+            = @building.completion.to_s + '年'
           %th.property_view_table-title
             = '向き'
           %td.property_view_table-body
@@ -40,11 +41,11 @@
           %th.property_view_table-title
             = '所在階'
           %td.property_view_table-body
-            = @room.floor + '階'
+            = @room.floor.to_s + '階'
           %th.property_view_table-title
             = '階建'
           %td.property_view_table-body
-            = @building.floor_height + '階建'
+            = @building.floor_height.to_s + '階建'
 
   %h3 物件概要
   .property_view_table
@@ -54,12 +55,12 @@
           %th.property_view_table-title
             = '賃料'
           %td.property_view_table-body{:colspan => "3"}
-            %strong= @room.rent + '円'
+            %strong= @room.rent.to_s + '円'
         %tr
           %th.property_view_table-title
             = '専有面積'
           %td.property_view_table-body
-            = @room.square + "㎡"
+            = @room.square.to_s + "㎡"
           %th.property_view_table-title
             = '部屋番号'
           %td.property_view_table-body
