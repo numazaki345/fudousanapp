@@ -3,6 +3,7 @@
     ログイン
   %hr
   .row
+    = render "users/shared/error_messages", resource: resource
     .col-sm-6
       .btn.btn-google-inverse.btn-block.btn-lg
         - if devise_mapping.omniauthable?
@@ -17,7 +18,7 @@
       = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
         .form-group
           = f.label :email, 'メールアドレス'
-          = f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control'
+          = f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', :required => ""
         .form-group
           = f.label :password, 'パスワード'
           = f.password_field :password, autocomplete: "current-password", class: 'form-control mb-3'

@@ -1,5 +1,6 @@
 .property_view_table
   = form_with model: @building, local: true do |f|
+    = render 'layouts/error_messages', object: f.object
     %table.property_view_table
       %tbody
         %tr
@@ -13,7 +14,7 @@
           %th.property_view_table-title
             = f.label '郵便番号(7桁)'
           %td.property_view_table-body
-            = f.number_field :zipcode, class: 'form-control', :maxlength => "7", :onkeyup => "AjaxZip3.zip2addr(this,'','pref01','addr01');", :placeholder => "1060032", :required => "", :type => "text"
+            = f.number_field :zipcode, class: 'form-control', :maxlength => "7", :onkeyup => "AjaxZip3.zip2addr(this,'','pref01','addr01');", :placeholder => "1060032", :type => "text"
         %tr
           %th.property_view_table-title
             = f.label '都道府県'
@@ -45,14 +46,14 @@
           %td.property_view_table-body
             .col-md-3.d-flex.flex-row
               %p= '約'
-              = f.number_field :completion, class: 'form-control', :placeholder => "10", :required => "", :maxlength => "2", :type => "text"
+              = f.number_field :completion, class: 'form-control', :placeholder => "10", :maxlength => "2", :type => "text"
               %p= '年'
         %tr
           %th.property_view_table-title{:colspan => "2"}
             = f.label '階数'
           %td.property_view_table-body
             .col-md-3.d-flex.flex-row
-              = f.number_field :floor_height, class: 'form-control', :placeholder => "10", :required => "", :maxlength => "2", :type => "text"
+              = f.number_field :floor_height, class: 'form-control', :placeholder => "10", :maxlength => "2", :type => "text"
               %p 階建
         %tr
           %th.property_view_table-title{:colspan => "2"}
@@ -64,7 +65,7 @@
             = f.label '向き'
           %td.property_view_table-body
             .col-md-2
-              = f.text_field :balcony_type, class: 'form-control', :placeholder => "北", :required => "", :type => "text"
+              = f.text_field :balcony_type, class: 'form-control', :placeholder => "北", :type => "text"
         %tr
           %th.property_view_table-title{:colspan => "2"}
             = f.label '外観画像'
