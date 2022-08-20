@@ -3,20 +3,16 @@ class BuildingsController < ApplicationController
   def index
     if 'latest' == params[:keyword]
       @q = Building.latest.ransack(params[:q])
-      @buildings = @q.result(distinct: true)
     elsif 'old' == params[:keyword]
       @q = Building.old.ransack(params[:q])
-      @buildings = @q.result(distinct: true)
     elsif 'high' == params[:keyword]
       @q = Building.all.includes(:rooms).order("rooms.rent desc").ransack(params[:q])
-      @buildings = @q.result(distinct: true)
     elsif 'row' == params[:keyword]
       @q = Building.all.includes(:rooms).order("rooms.rent").ransack(params[:q])
-      @buildings = @q.result(distinct: true)
     else
       @q = Building.latest.ransack(params[:q])
-      @buildings = @q.result(distinct: true)
     end
+    @buildings = @q.result(distinct: true).page(params[:page]).per(10)
   end
 
   def show
@@ -30,7 +26,7 @@ class BuildingsController < ApplicationController
   def create
     @building = current_user.buildings.new(building_params)
 
-    if @building.save!
+    if @building.save
       redirect_to buildings_url, notice: "物件#{@building.name}を登録しました。"
     else
       render :new

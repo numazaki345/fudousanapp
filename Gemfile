@@ -81,4 +81,4 @@ gem 'devise' #ユーザー認証
 gem 'devise-i18n' #deviseの日本語化
 gem 'dotenv-rails' #環境変数
 gem 'omniauth-google-oauth2' #google認証
-
+gem 'kaminari' #ページネーション

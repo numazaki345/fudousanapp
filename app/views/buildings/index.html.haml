@@ -18,7 +18,19 @@
 
 - @buildings.each do |building|
   .building_property
-    %h2= building.name
+    .building_header
+      %h2= building.name
+      - if current_user.id == building.user_id
+        %nav.navbar.navbar-expand-lg
+          #navbarSupportedContent.collapse.navbar-collapse
+            %ul.navbar-nav.mr-auto
+              %li.nav-item.dropdown
+                %a#navbarDropdown.nav-link{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+                  &#65049;
+                .dropdown-menu{"aria-labelledby" => "navbarDropdown"}
+                  %a= link_to '部屋追加', building, class: 'dropdown-item'
+                  .dropdown-divider
+                  %a= button_to '物件削除', building, method: :delete, class: 'dropdown-item'
     .building_detail
       = image_tag building.image, size: '320x240' if building.image.attached?
       %ul
@@ -32,14 +44,16 @@
             %dt 交通
             %dd
               = building.transportation
-        %li
-          %dl
-            %dt 築年
-            %dd= building.completion + '年'
-        %li
-          %dl
-            %dt 階数
-            %dd= building.floor_height + '階建'
+        - if building.completion.present?
+          %li
+            %dl
+              %dt 築年
+              %dd= building.completion.to_s + '年'
+        - if building.floor_height.present?
+          %li
+            %dl
+              %dt 階数
+              %dd= building.floor_height.to_s + '階建'
         %li
           %dl
             %dt 種別
@@ -48,16 +62,11 @@
           %dl
             %dt 構造
             %dd= building.structure_type
-        %li
-          %dl
-            %dt 向き
-            %dd= building.balcony_type
-        - if current_user.id == building.user_id
+        - if building.balcony_type.present?
           %li
-            %dl.administrator
-              %dt 管理者
-              %dd= link_to '部屋追加', building, class: 'btn btn-primary btn-sm'
-              %dd= button_to '物件削除', building, method: :delete, class: 'btn btn-danger btn-sm'
+            %dl
+              %dt 向き
+              %dd= building.balcony_type
     .room_datail
       %ol
         %li 賃料
@@ -70,10 +79,10 @@
       - building.rooms.each do |room|
         %ul
           %li
-            %strong= room.rent + '円'
+            %strong= room.rent.to_s + '円'
           %li= room.madori
           %li
-            = room.square + '㎡'
+            = room.square.to_s + '㎡'
           %li
             = room.floor
             階
@@ -82,3 +91,4 @@
           - if current_user.id == building.user_id
             %li
               %a= button_to '削除', room, method: :delete, class: 'btn btn-danger btn-sm'
+= paginate @buildings

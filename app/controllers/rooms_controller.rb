@@ -7,8 +7,12 @@ class RoomsController < ApplicationController
 
   def create
     @building = Building.find(params[:building_id])
-    @room = @building.rooms.create(room_params)
-    redirect_to buildings_url, notice: "部屋を登録しました。"
+    @room = @building.rooms.new(room_params)
+    if @room.save
+      redirect_to buildings_url, notice: "部屋を登録しました。"
+    else
+      render 'buildings/show'
+    end
   end
 
   def destroy

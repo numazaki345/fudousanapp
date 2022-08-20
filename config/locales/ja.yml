@@ -6,6 +6,18 @@ ja:
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
+    models:
+      building:
+      room:
+    attributes:
+      building:
+        zipcode: 郵便番号
+        completion: 築年数
+        floor_height: 階数
+      room:
+        rent: 賃料
+        square: 専有面積
+        floor: 所在階
   date:
     abbr_day_names:
     - 日

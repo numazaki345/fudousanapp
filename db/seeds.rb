@@ -5,13 +5,12 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-# User.create!(
-#   email: 'test1@test.com',
-#   password: 'testtest',
-#   password: 'testtest',
-# )
+User.create!(
+  email: 'test@test.com',
+  password: 'test1234',
+)
 
-10.times do |n|
+100.times do |n|
   Building.create!(
     # n + 1で数字が重複しないようにする
     name: "テストユーザー#{n + 1}",
@@ -25,5 +24,6 @@
     building_type: "マンション",
     balcony_type: "北",
     structure_type: "鉄筋コンクリート",
+    user_id: User.first.id
   )
 end
