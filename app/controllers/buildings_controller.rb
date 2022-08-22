@@ -7,7 +7,7 @@ class BuildingsController < ApplicationController
       @q = Building.old.ransack(params[:q])
     elsif 'high' == params[:keyword]
       @q = Building.all.includes(:rooms).order("rooms.rent desc").ransack(params[:q])
-    elsif 'row' == params[:keyword]
+    elsif 'low' == params[:keyword]
       @q = Building.all.includes(:rooms).order("rooms.rent").ransack(params[:q])
     else
       @q = Building.latest.ransack(params[:q])

@@ -8,6 +8,12 @@ Rails.application.routes.draw do
   end
   root to: 'buildings#index'
   resources :buildings
+  resources :clients do
+    collection do
+      post :confirm
+      get :complete
+    end
+  end
   resources :rooms, only: [:show, :destroy]
 
   resources :buildings do

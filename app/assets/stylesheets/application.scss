@@ -1,11 +1,16 @@
 @import "bootstrap";
 
+// 共通
 body, select, textarea, th, td, li, a, input {
   font-family: 'メイリオ','meiryo','ＭＳ Ｐゴシック','MS P Gothic','ヒラギノ角ゴ Pro','Hiragino Kaku Gothic Pro','Helvetica','sans-serif';
 }
 
 ul, ol {
   list-style: none;
+}
+
+a {
+  text-decoration: none;
 }
 
 dd {
@@ -17,6 +22,15 @@ select {
   font-size: 12px;
   padding: 7px 7px;
   background-position: right center;
+}
+
+.title_page {
+  position: relative;
+  border-bottom: 3px solid red;
+  color: #333;
+  font-size: 20px;
+  text-align: left;
+
 }
 
 
@@ -207,4 +221,17 @@ select {
 }
 .login_btn {
   width: 100%;
+}
+
+
+// 申し込みフォーム
+.option-list li {
+  width: 33%;
+  float: left;
+}
+.width-430 {
+  width: 430px;
+}
+.m-lefl-30 {
+  margin-left: 30px;
 }

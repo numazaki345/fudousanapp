@@ -1,5 +1,7 @@
-.property_view_table
-  = form_with(model: [ @building, @building.rooms.build ], local: true) do |f|
+%h2.title_page
+  部屋情報の入力
+.property_view_table.mt-5
+  = form_with(model: [ @building, @building.rooms.build ]) do |f|
     - if @room.present?
       - if @room.errors.any?
         .alert.alert-danger

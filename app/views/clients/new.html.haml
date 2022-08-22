@@ -1,0 +1,193 @@
+%h2.title_page
+  お客様情報の入力
+.property_view_table.mt-5
+  = form_with model: @client, url: confirm_clients_path(@client) do |f|
+    = render 'layouts/error_messages', object: f.object
+    %table.property_view_table
+      %tbody
+        %tr
+          %th.property_view_table-title{:colspan => "2"}
+            = f.label 'お名前'
+          %td.property_view_table-body.width-430
+            .col-md-5.m-lefl-30
+              = f.text_field :name, class: 'form-control', :placeholder => "田中太郎", :required => "", :type => "text"
+        %tr
+          %th.property_view_table-title{:colspan => "2"}
+            = f.label '生年月日'
+          %td.property_view_table-body
+            .col-md-5.m-lefl-30
+              = f.number_field :birth, class: 'form-control', :placeholder => "19900101", :required => "", :maxlength => "8", :type => "text"
+        %tr
+          %th.property_view_table-title{:colspan => "2"}
+            = f.label '性別'
+          %td.property_view_table-body
+            %ul.option-list
+              %li
+                = f.radio_button :gender, '男性', {checked: true}
+                = f.label :gender, "男性", {value: :male, style: "display: inline-block;"}
+              %li
+                = f.radio_button :gender, '女性'
+                = f.label :gender, "女性"
+        %tr
+          %th.property_view_table-title{:rowspan => "6"}
+            = f.label '希望条件'
+          %th.property_view_table-title
+            = f.label '賃料'
+          %td.property_view_table-body
+            .selectunit.m-lefl-30
+              = f.select :rent_low, [["下限なし"],["3万円以上"],["3.5万円以上"],["4万円以上"],["4.5万円以上"],["5万円以上"],["5.5万円以上"],["6万円以上"],["6.5万円以上"],["7万円以上"],["7.5万円以上"],["8万円以上"],["8.5万円以上"],["9万円以上"],["9.5万円以上"],["10万円以上"],["10.5万円以上"],["11万円以上"],["11.5万円以上"],["12万円以上"],["12.5万円以上"],["13万円以上"],["13.5万円以上"],["14万円以上"],["14.5万円以上"],["15万円以上"],["15.5万円以上"],["16万円以上"],["16.5万円以上"],["17万円以上"],["17.5万円以上"],["18万円以上"],["18.5万円以上"],["19万円以上"],["19.5万円以上"],["20万円以上"]]
+              〜
+              = f.select :rent_high, [["上限なし"],["3万円以下"],["3.5万円以下"],["4万円以下"],["4.5万円以下"],["5万円以下"],["5.5万円以下"],["6万円以下"],["6.5万円以下"],["7万円以下"],["7.5万円以下"],["8万円以下"],["8.5万円以下"],["9万円以下"],["9.5万円以下"],["10万円以下"],["10.5万円以下"],["11万円以下"],["11.5万円以下"],["12万円以下"],["12.5万円以下"],["13万円以下"],["13.5万円以下"],["14万円以下"],["14.5万円以下"],["15万円以下"],["15.5万円以下"],["16万円以下"],["16.5万円以下"],["17万円以下"],["17.5万円以下"],["18万円以下"],["18.5万円以下"],["19万円以下"],["19.5万円以下"],["20万円以下"]]
+            .selectunit-option
+              %ul.option-list
+                %li
+                  = f.check_box :rent_option, {multiple: true}, "管理費・共益費込み", nil
+                  管理費・共益費込み
+                %li
+                  = f.check_box :rent_option, {multiple: true}, "駐車場代込み", nil
+                  駐車場代込み
+                %li
+                  = f.check_box :rent_option, {multiple: true}, "礼金なし", nil
+                  礼金なし
+                %li
+                  = f.check_box :rent_option, {multiple: true}, "敷金・保証金なし", nil
+                  敷金・保証金なし
+                %li
+                  = f.check_box :rent_option, {multiple: true}, "初期費用カード決済可", nil
+                  初期費用カード決済可
+                %li
+                  = f.check_box :rent_option, {multiple: true}, "決済可家賃カード決済可", nil
+                  家賃カード決済可
+        %tr
+          %th.property_view_table-title
+            = f.label '駅徒歩'
+          %td.property_view_table-body
+            %ul.option-list
+              %li
+                = f.radio_button :minute, '1分以内'
+                = f.label :minute, "1分以内"
+              %li
+                = f.radio_button :minute, '5分以内'
+                = f.label :minute, "5分以内"
+              %li
+                = f.radio_button :minute, '7分以内'
+                = f.label :minute, "7分以内", {value: :male, style: "display: inline-block;"}
+              %li
+                = f.radio_button :minute, '10分以内'
+                = f.label :minute, "10分以内"
+              %li
+                = f.radio_button :minute, '15分以内'
+                = f.label :minute, "15分以内"
+              %li
+                = f.radio_button :minute, '20分以内'
+                = f.label :minute, "20分以内"
+              %li
+                = f.radio_button :minute, '指定なし', {checked: true}
+                = f.label :minute, "指定なし"
+        %tr
+          %th.property_view_table-title
+            = f.label '間取りタイプ'
+          %td.property_view_table-body
+            %ul.option-list
+              %li
+                = f.check_box :madori, {multiple: true}, "ワンルーム", nil
+                ワンルーム
+              %li
+                = f.check_box :madori, {multiple: true}, "1K", nil
+                1K
+              %li
+                = f.check_box :madori, {multiple: true}, "1DK", nil
+                1DK
+              %li
+                = f.check_box :madori, {multiple: true}, "1LDK", nil
+                1LDK
+              %li
+                = f.check_box :madori, {multiple: true}, "2K", nil
+                2K
+              %li
+                = f.check_box :madori, {multiple: true}, "2DK", nil
+                2DK
+              %li
+                = f.check_box :madori, {multiple: true}, "2LDK", nil
+                2LDK
+              %li
+                = f.check_box :madori, {multiple: true}, "3K", nil
+                3K
+              %li
+                = f.check_box :madori, {multiple: true}, "3DK", nil
+                3DK
+              %li
+                = f.check_box :madori, {multiple: true}, "3LDK", nil
+                3LDK
+              %li
+                = f.check_box :madori, {multiple: true}, "4K", nil
+                4K
+              %li
+                = f.check_box :madori, {multiple: true}, "4DK", nil
+                4DK
+              %li
+                = f.check_box :madori, {multiple: true}, "4LDK", nil
+                4LDK
+              %li
+                = f.check_box :madori, {multiple: true}, "5K以上", nil
+                5K以上
+        %tr
+          %th.property_view_table-title
+            = f.label '建物種別'
+          %td.property_view_table-body
+            %ul.option-list
+              %li
+                = f.check_box :building, {multiple: true}, "マンション", nil
+                マンション
+              %li
+                = f.check_box :building, {multiple: true}, "アパート", nil
+                アパート
+              %li
+                = f.check_box :building, {multiple: true}, "一戸建て・その他", nil
+                一戸建て・その他
+        %tr
+          %th.property_view_table-title
+            = f.label '築後年数'
+          %td.property_view_table-body
+            %ul.option-list
+              %li
+                = f.radio_button :completion, '新築'
+                = f.label :completion, "新築"
+              %li
+                = f.radio_button :completion, '1年以内'
+                = f.label :completion, "1年以内"
+              %li
+                = f.radio_button :completion, '3年以内'
+                = f.label :completion, "3年以内"
+              %li
+                = f.radio_button :completion, '5年以内'
+                = f.label :completion, "5年以内"
+              %li
+                = f.radio_button :completion, '7年以内'
+                = f.label :completion, "7年以内"
+              %li
+                = f.radio_button :completion, '10年以内'
+                = f.label :completion, "10年以内"
+              %li
+                = f.radio_button :completion, '15年以内'
+                = f.label :completion, "15年以内"
+              %li
+                = f.radio_button :completion, '20年以内'
+                = f.label :completion, "20年以内"
+              %li
+                = f.radio_button :completion, '25年以内'
+                = f.label :completion, "25年以内"
+              %li
+                = f.radio_button :completion, '30年以内'
+                = f.label :completion, "30年以内"
+              %li
+                = f.radio_button :completion, '指定しない', {checked: true}
+                = f.label :completion, "指定しない"
+        %tr
+          %th.property_view_table-title
+            = f.label 'その他条件'
+          %td.property_view_table-body
+            = f.text_field :conditions, class: 'form-control', :placeholder => "エアコン付き、ペット可", :type => "text"
+        %tr
+          %td.property_view_table-body{:colspan => "3"}
+            = f.submit '確認画面へ', class: 'btn btn-primary btn-block col-sm-12'
