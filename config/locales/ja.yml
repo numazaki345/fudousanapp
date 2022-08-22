@@ -18,6 +18,11 @@ ja:
         rent: 賃料
         square: 専有面積
         floor: 所在階
+      client:
+        birth: 生年月日
+        gender: 性別
+        minute: 徒歩時間
+        completion: 築年数
   date:
     abbr_day_names:
     - 日

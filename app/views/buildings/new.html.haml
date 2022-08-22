@@ -1,5 +1,7 @@
-.property_view_table
-  = form_with model: @building, local: true do |f|
+%h2.title_page
+  物件情報の入力
+.property_view_table.mt-5
+  = form_with model: @building do |f|
     = render 'layouts/error_messages', object: f.object
     %table.property_view_table
       %tbody
@@ -45,7 +47,6 @@
             = f.label '築年数'
           %td.property_view_table-body
             .col-md-3.d-flex.flex-row
-              %p= '約'
               = f.number_field :completion, class: 'form-control', :placeholder => "10", :maxlength => "2", :type => "text"
               %p= '年'
         %tr

@@ -1,0 +1,49 @@
+%h2.title_page
+  お客様情報
+.property_view_table.mt-5
+  %table.property_view_table
+    %tbody
+      %tr
+        %th.property_view_table-title{:colspan => "2"}
+          = '名前'
+        %td.property_view_table-body
+          = @client.name
+      %tr
+        %th.property_view_table-title{:rowspan => "6"}
+          = '希望条件'
+        %th.property_view_table-title
+          = '賃料'
+        %td.property_view_table-body
+          = @client.rent_low
+          〜
+          = @client.rent_high
+          - if @client.rent_option
+            %div= @client.rent_option.delete("\"[]")
+
+      %tr
+        %th.property_view_table-title
+          = '駅徒歩'
+        %td.property_view_table-body
+          = @client.minute
+      %tr
+        %th.property_view_table-title
+          = '間取りタイプ'
+        %td.property_view_table-body
+          - if @client.madori
+            = @client.madori.delete("\"[]")
+      %tr
+        %th.property_view_table-title
+          = '建物種別'
+        %td.property_view_table-body
+          - if @client.building
+            = @client.building.delete("\"[]")
+      %tr
+        %th.property_view_table-title
+          = '築後年数'
+        %td.property_view_table-body
+          = @client.completion
+      %tr
+        %th.property_view_table-title
+          = 'その他条件'
+        %td.property_view_table-body
+          = @client.conditions

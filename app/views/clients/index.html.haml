@@ -1,0 +1,17 @@
+- @clients.each do |client|
+  .room_datail
+    %ol
+      %li 名前
+      %li 生年月日
+      %li 性別
+      %li 詳細
+      %li ユーザー削除
+    %ul
+      %li= client.name
+      %li= client.birth
+      %li= client.gender
+      %li
+        %a= link_to '詳細を見る', client
+      %li
+        %a= button_to '削除', client, method: :delete, class: 'btn btn-danger btn-sm'
+= paginate @clients

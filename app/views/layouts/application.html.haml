@@ -13,8 +13,10 @@
       %ul.navbar-nav.ml-auto
       .nav.justify-content-end
         - if current_user
-          %li.nav-item= link_to '新規登録', new_building_path, class: 'btn btn-primary'
           %li.nav-item= link_to 'TOPページ', buildings_path, class: 'nav-link'
+          %li.nav-item= link_to '物件登録', new_building_path, class: 'nav-link'
+          %li.nav-item= link_to '顧客一覧', clients_path, class: 'nav-link'
+          %li.nav-item= link_to '顧客申し込み', new_client_path, class: 'nav-link'
           %li.nav-item= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'nav-link'
     / jQuery first, then Popper.js, then Bootstrap JS
     %script{:crossorigin => "anonymous", :integrity => "sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo", :src => "https://code.jquery.com/jquery-3.3.1.slim.min.js"}
