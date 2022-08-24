@@ -1,0 +1,18 @@
+%h2.title_page
+  物件の情報を入力
+.property_view_table.mt-5
+  = form_with model: @email do |f|
+    %table.property_view_table
+      %tbody
+        %tr
+          %th.property_view_table-title{:colspan => "1"}
+            = f.label :email, 'メールアドレス'
+          %td.property_view_table-body
+            = f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control'
+        %tr
+          %th.property_view_table-title{:colspan => "1"}
+            = f.label '物件のURL'
+          %td.property_view_table-body.width-430
+            = f.text_area :building_url, rows: 5, class: 'form-control', :required => "", :type => "text"
+
+    = f.submit '送信', class: 'btn btn-primary btn-block col-sm-12'

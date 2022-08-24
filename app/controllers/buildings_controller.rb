@@ -2,15 +2,15 @@ class BuildingsController < ApplicationController
 
   def index
     if 'latest' == params[:keyword]
-      @q = Building.latest.ransack(params[:q])
+      @q = Building.all.includes(:rooms).latest.ransack(params[:q])
     elsif 'old' == params[:keyword]
-      @q = Building.old.ransack(params[:q])
+      @q = Building.all.includes(:rooms).old.ransack(params[:q])
     elsif 'high' == params[:keyword]
       @q = Building.all.includes(:rooms).order("rooms.rent desc").ransack(params[:q])
     elsif 'low' == params[:keyword]
       @q = Building.all.includes(:rooms).order("rooms.rent").ransack(params[:q])
     else
-      @q = Building.latest.ransack(params[:q])
+      @q = Building.all.includes(:rooms).latest.ransack(params[:q])
     end
     @buildings = @q.result(distinct: true).page(params[:page]).per(10)
   end
@@ -31,6 +31,16 @@ class BuildingsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def edit
+    @building = Building.find(params[:id])
+  end
+
+  def update
+    building = Building.find(params[:id])
+    building.update!(building_params)
+    redirect_to buildings_url, notice: "物件#{building.name}を更新しました。"
   end
 
   def destroy

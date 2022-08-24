@@ -1,0 +1,51 @@
+%h2.title_page
+  部屋情報の編集
+.property_view_table.mt-5
+  = form_with model: @room do |f|
+    - if @room.present?
+      - if @room.errors.any?
+        .alert.alert-danger
+          %ul.mb-0
+            - @room.errors.full_messages.each do |msg|
+              %li= msg
+    %table.property_view_table
+      %tbody
+        %tr
+          %th.property_view_table-title{:colspan => "1"}
+            = f.label '賃料'
+          %td.property_view_table-body
+            = f.number_field :rent, class: 'form-control', :placeholder => "70000", :required => "", :maxlength => "6", :type => "text"
+        %tr
+          %th.property_view_table-title{:colspan => "1"}
+            = f.label '専有面積'
+          %td.property_view_table-body
+            .col-md-3.d-flex.flex-row
+              = f.number_field :square, step: "0.1", class: 'form-control', :placeholder => "20", :required => "", :maxlength => "4", :type => "text"
+              %p ㎡
+        %tr
+          %th.property_view_table-title{:colspan => "1"}
+            = f.label '部屋番号'
+          %td.property_view_table-body
+            .col-md-2
+              = f.text_field :room_number, class: 'form-control', :placeholder => "101", :required => "", :type => "text"
+        %tr
+          %th.property_view_table-title{:colspan => "1"}
+            = f.label '所在階'
+          %td.property_view_table-body
+            .col-md-3.d-flex.flex-row
+              = f.number_field :floor, class: 'form-control', :placeholder => "10", :required => "", :maxlength => "2", :type => "text"
+              %p 階
+        %tr
+          %th.property_view_table-title{:colspan => "1"}
+            = f.label '間取り'
+          %td.property_view_table-body
+            .col-md-3
+              = f.text_field :madori, class: 'form-control', :placeholder => "1K", :required => "", :type => "text"
+        %tr
+          %th.property_view_table-title{:colspan => "1"}
+            = f.label '部屋画像'
+          %td.property_view_table-body
+            = f.file_field :images, class: 'form-control', :required => "", multiple: true
+        %tr
+          %td.property_view_table-body{:colspan => "3"}
+            = f.submit '登録する', class: 'btn btn-primary btn-block col-sm-12'

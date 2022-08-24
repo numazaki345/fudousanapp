@@ -1,0 +1,55 @@
+%h2.title_page
+  お客様情報
+.property_view_table.mt-5
+  %table.property_view_table
+    %tbody
+      %tr
+        %th.property_view_table-title{:colspan => "2"}
+          = '名前'
+        %td.property_view_table-body
+          = @client.name
+      %tr
+        %th.property_view_table-title{:rowspan => "7"}
+          = '希望条件'
+        %th.property_view_table-title
+          = 'エリア'
+        %td.property_view_table-body
+          = @condition.area
+      %tr
+        %th.property_view_table-title
+          = '賃料'
+        %td.property_view_table-body
+          = @condition.rent_low
+          〜
+          = @condition.rent_high
+          - if @condition.rent_option
+            %div= @condition.rent_option.delete("\"[]")
+
+      %tr
+        %th.property_view_table-title
+          = '駅徒歩'
+        %td.property_view_table-body
+          = @condition.minute
+      %tr
+        %th.property_view_table-title
+          = '間取りタイプ'
+        %td.property_view_table-body
+          - if @condition.madori
+            = @condition.madori.delete("\"[]")
+      %tr
+        %th.property_view_table-title
+          = '建物種別'
+        %td.property_view_table-body
+          - if @condition.building
+            = @condition.building.delete("\"[]")
+      %tr
+        %th.property_view_table-title
+          = '築後年数'
+        %td.property_view_table-body
+          = @condition.completion
+      %tr
+        %th.property_view_table-title
+          = 'その他条件'
+        %td.property_view_table-body
+          = @condition.row
+= link_to '編集', edit_condition_path(@condition)

@@ -1,7 +1,13 @@
 = search_form_for @q, url: buildings_path, class: 'mb-5' do |f|
   .form-group.row
     .col-sm-10.mb-3
-      = f.search_field :name_or_rooms_rent_cont, class: 'form-control', :placeholder => "キーワードを入力"
+      %p 物件名で検索
+      = f.search_field :name_cont, class: 'form-control', :placeholder => "キーワードを入力"
+    .form-group
+      = f.submit class: 'btn btn-outline-primary'
+    .col-sm-10.mb-3
+      %p 賃料で検索
+      = f.number_field :rooms_rent_cont, class: 'form-control', :placeholder => "キーワードを入力"
     .form-group
       = f.submit class: 'btn btn-outline-primary'
 
@@ -30,6 +36,7 @@
                 .dropdown-menu{"aria-labelledby" => "navbarDropdown"}
                   %a= link_to '部屋追加', building, class: 'dropdown-item'
                   .dropdown-divider
+                  %a= link_to '物件編集', edit_building_path(building), class: 'dropdown-item'
                   %a= button_to '物件削除', building, method: :delete, class: 'dropdown-item'
     .building_detail
       = image_tag building.image, size: '320x240' if building.image.attached?
@@ -38,7 +45,7 @@
           %dl
             %dt 住所
             %dd
-              = building.prefectures + building.city + building.town_name + building.name
+              = building.prefectures + building.city + building.town_name
         %li
           %dl
             %dt 交通

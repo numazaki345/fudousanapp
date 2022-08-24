@@ -23,7 +23,7 @@
           = f.label :password, 'パスワード'
           - if @minimum_password_length
             %em
-              (#{@minimum_password_length} 文字以上)
+              (#{@minimum_password_length} 文字以上の半角英数字を含む)
           = f.password_field :password, autocomplete: "current-password", class: 'form-control mb-3'
         .form-group
           = f.label :password_confirmation, 'パスワード(確認)'

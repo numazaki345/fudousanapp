@@ -1,8 +1,8 @@
 class ClientsController < ApplicationController
-  skip_before_action :authenticate_user!
-  before_action :redirect_root, except: [:new, :create, :confirm, :complete]
+  skip_before_action :authenticate_user!, only:[:show]
+
   def index
-    @clients = Client.all.page(params[:page]).per(10)
+    @clients = Client.all.includes(:condition).page(params[:page]).per(10).order("created_at desc")
   end
 
   def new
@@ -12,13 +12,11 @@ class ClientsController < ApplicationController
   def create
     @client = Client.new(client_params)
 
-    if params[:back] || !@client.save #戻るボタンを押したときまたは、@clientが保存されなかったらnewアクションを実行
-      render :new and return
-    end
-    if current_user
-      redirect_to complete_clients_path, notice: "#{@client.name}を登録しました。"
+    if @client.save
+      ClientMailer.with(client: @client).creation_email.deliver_now
+      redirect_to clients_path, notice: "#{@client.name}を登録しました。"
     else
-      redirect_to complete_clients_path
+      render :new
     end
   end
 
@@ -26,11 +24,14 @@ class ClientsController < ApplicationController
     @client = Client.find(params[:id])
   end
 
-  def confirm
-    @client = Client.new(client_params)
-    if @client.invalid? #入力項目に空のものがあれば入力画面に遷移
-      render :new
-    end
+  def edit
+    @client = Client.find(params[:id])
+  end
+
+  def update
+    client = Client.find(params[:id])
+    client.update!(client_params)
+    redirect_to clients_url, notice: "#{client.name}を更新しました。"
   end
 
   def destroy
@@ -41,10 +42,6 @@ class ClientsController < ApplicationController
 
   private
   def client_params
-    params.require(:client).permit(:name, :birth, :gender, :rent_high, :rent_low, :conditions, :completion, :minute, rent_option:[], madori:[], building:[])
-  end
-
-  def redirect_root
-    redirect_to new_client_path unless user_signed_in?
+    params.require(:client).permit(:name, :email)
   end
 end

@@ -1,20 +1,15 @@
 %h2.title_page
-  お客様情報の入力
+  お客様情報の編集
 .property_view_table.mt-5
-  = form_with(model: [ @client, @client.build_condition ]) do |f|
+  = form_with model: @condition do |f|
     %table.property_view_table
       %tbody
         %tr
-          %th.property_view_table-title{:rowspan => "7"}
+          %th.property_view_table-title{:rowspan => "6"}
             = f.label '希望条件'
           %th.property_view_table-title
-            = f.label 'エリア'
-          %td.property_view_table-body
-            = f.text_field :area, class: 'form-control', :placeholder => "東京都渋谷区", :type => "text"
-        %tr
-          %th.property_view_table-title
             = f.label '賃料'
-          %td.property_view_table-body.width-380
+          %td.property_view_table-body
             .selectunit.m-lefl-30
               = f.select :rent_low, [["下限なし"],["3万円以上"],["3.5万円以上"],["4万円以上"],["4.5万円以上"],["5万円以上"],["5.5万円以上"],["6万円以上"],["6.5万円以上"],["7万円以上"],["7.5万円以上"],["8万円以上"],["8.5万円以上"],["9万円以上"],["9.5万円以上"],["10万円以上"],["10.5万円以上"],["11万円以上"],["11.5万円以上"],["12万円以上"],["12.5万円以上"],["13万円以上"],["13.5万円以上"],["14万円以上"],["14.5万円以上"],["15万円以上"],["15.5万円以上"],["16万円以上"],["16.5万円以上"],["17万円以上"],["17.5万円以上"],["18万円以上"],["18.5万円以上"],["19万円以上"],["19.5万円以上"],["20万円以上"]]
               〜
