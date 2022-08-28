@@ -19,9 +19,9 @@ User.create!(
     city: "港区",
     town_name: "六本木3丁目2-1",
     station: "六本木一丁目駅",
-    station_minute: "10",
-    completion: '10',
-    floor_height: "10",
+    station_minute: "#{n + 1}",
+    completion: "#{n + 1}",
+    floor_height: "#{n + 1}",
     building_type: "マンション",
     balcony_type: "北",
     structure_type: "鉄筋コンクリート",
@@ -33,7 +33,7 @@ end
   Room.create!(
     # n + 1で数字が重複しないようにする
     rent: "#{n * 10000}",
-    square: "20",
+    square: "#{n + 1}",
     room_number: "#{n + 1}",
     madori: "1K",
     floor: "#{n + 1}",

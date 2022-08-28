@@ -15,7 +15,7 @@ class ConditionsController < ApplicationController
         redirect_to clients_url, notice: "お客様情報を登録しました"
       else
         redirect_to @condition, notice: "お客様情報を登録しました。
-        ３営業日以内にお客様のメールアドレス宛に弊社から物件の提案をいたます。"
+        ３営業日以内にお客様のメールアドレス宛に弊社から物件のご提案をいたします。"
       end
     else
       render 'clients/show'
