@@ -1,13 +1,15 @@
 = search_form_for @q, url: buildings_path, class: 'mb-5' do |f|
-  .form-group.row
+  .form-group
     .col-sm-10.mb-3
-      %p 物件名で検索
-      = f.search_field :name_cont, class: 'form-control', :placeholder => "キーワードを入力"
-    .form-group
-      = f.submit class: 'btn btn-outline-primary'
+      = f.label "検索"
+      = f.search_field :name_or_prefectures_or_station_or_station_minute_eq, class: 'form-control', :placeholder => "キーワードを入力"
     .col-sm-10.mb-3
-      %p 賃料で検索
-      = f.number_field :rooms_rent_cont, class: 'form-control', :placeholder => "キーワードを入力"
+      = f.label "賃料"
+      .inline
+        = f.number_field :rooms_rent_gteq, class: 'width-317 form_style'
+        以上〜
+        = f.number_field :rooms_rent_lt, class: 'width-317 form_style'
+        未満
     .form-group
       = f.submit class: 'btn btn-outline-primary'
 
@@ -19,6 +21,8 @@
                                 ['古い順', 'old'],
                                 ['賃料が高い順', 'high'],
                                 ['賃料が低い順', 'low'],
+                                ['駅が近い順', 'short'],
+                                ['駅が遠い順', 'long'],
                               ]
       = form.submit 'save'
 
@@ -48,9 +52,14 @@
               = building.prefectures + building.city + building.town_name
         %li
           %dl
-            %dt 交通
+            %dt 最寄
             %dd
-              = building.transportation
+              = building.station
+        %li
+          %dl
+            %dt 徒歩
+            %dd
+              = building.station_minute.to_s + '分'
         - if building.completion.present?
           %li
             %dl

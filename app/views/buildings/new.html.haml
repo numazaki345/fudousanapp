@@ -39,23 +39,27 @@
             = f.text_field :name, class: 'form-control', :placeholder => "住友不動産グランドタワー", :required => "", :type => "text"
         %tr
           %th.property_view_table-title{:colspan => "2"}
-            = f.label '交通情報'
+            = f.label '最寄駅'
           %td.property_view_table-body
-            = f.text_field :transportation, class: 'form-control', :placeholder => "六本木一丁目駅徒歩1分", :required => "", :type => "text"
+            = f.text_field :station, class: 'form-control', :placeholder => "六本木一丁目駅", :required => "", :type => "text"
+        %tr
+          %th.property_view_table-title{:colspan => "2"}
+            = f.label '駅までの徒歩時間'
+          %td.property_view_table-body
+            = f.number_field :station_minute, class: 'form_style col-md-2', :placeholder => "10", :maxlength => "2", :type => "text"
+            分
         %tr
           %th.property_view_table-title{:colspan => "2"}
             = f.label '築年数'
           %td.property_view_table-body
-            .col-md-3.d-flex.flex-row
-              = f.number_field :completion, class: 'form-control', :placeholder => "10", :maxlength => "2", :type => "text"
-              %p= '年'
+            = f.number_field :completion, class: 'form_style col-md-2', :placeholder => "10", :maxlength => "2", :type => "text"
+            年
         %tr
           %th.property_view_table-title{:colspan => "2"}
             = f.label '階数'
           %td.property_view_table-body
-            .col-md-3.d-flex.flex-row
-              = f.number_field :floor_height, class: 'form-control', :placeholder => "10", :maxlength => "2", :type => "text"
-              %p 階建
+            = f.number_field :floor_height, class: 'form_style col-md-2', :placeholder => "10", :maxlength => "2", :type => "text"
+            階建
         %tr
           %th.property_view_table-title{:colspan => "2"}
             = f.label '物件構造'

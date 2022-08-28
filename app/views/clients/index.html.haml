@@ -3,15 +3,12 @@
     %ol
       %li 名前
       %li メールアドレス
-      %li 登録
       %li 詳細
       %li ユーザー編集
       %li ユーザー削除
     %ul
       %li= client.name
       %li= client.email
-      %li
-        %a= link_to '登録', client
       %li
         - if client.condition
           %a= link_to '詳細を見る', client.condition

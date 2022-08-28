@@ -46,7 +46,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_225806) do
     t.string "city", null: false
     t.string "town_name", null: false
     t.string "name", null: false
-    t.string "transportation", null: false
+    t.string "station", null: false
+    t.integer "station_minute", null: false
     t.integer "completion"
     t.integer "floor_height"
     t.string "building_type", null: false

@@ -5,20 +5,26 @@
     %table.property_view_table
       %tbody
         %tr
-          %th.property_view_table-title{:rowspan => "6"}
+          %th.property_view_table-title{:rowspan => "7"}
             = f.label '希望条件'
           %th.property_view_table-title
-            = f.label '賃料'
+            = f.label 'エリア'
           %td.property_view_table-body
+            = f.text_field :area, class: 'form-control', :placeholder => "東京都渋谷区", :type => "text"
+        %tr
+          %th.property_view_table-title
+            = f.label '賃料'
+          %td.property_view_table-body.width-380
             .selectunit.m-lefl-30
               = f.select :rent_low, [["下限なし"],["3万円以上"],["3.5万円以上"],["4万円以上"],["4.5万円以上"],["5万円以上"],["5.5万円以上"],["6万円以上"],["6.5万円以上"],["7万円以上"],["7.5万円以上"],["8万円以上"],["8.5万円以上"],["9万円以上"],["9.5万円以上"],["10万円以上"],["10.5万円以上"],["11万円以上"],["11.5万円以上"],["12万円以上"],["12.5万円以上"],["13万円以上"],["13.5万円以上"],["14万円以上"],["14.5万円以上"],["15万円以上"],["15.5万円以上"],["16万円以上"],["16.5万円以上"],["17万円以上"],["17.5万円以上"],["18万円以上"],["18.5万円以上"],["19万円以上"],["19.5万円以上"],["20万円以上"]]
               〜
               = f.select :rent_high, [["上限なし"],["3万円以下"],["3.5万円以下"],["4万円以下"],["4.5万円以下"],["5万円以下"],["5.5万円以下"],["6万円以下"],["6.5万円以下"],["7万円以下"],["7.5万円以下"],["8万円以下"],["8.5万円以下"],["9万円以下"],["9.5万円以下"],["10万円以下"],["10.5万円以下"],["11万円以下"],["11.5万円以下"],["12万円以下"],["12.5万円以下"],["13万円以下"],["13.5万円以下"],["14万円以下"],["14.5万円以下"],["15万円以下"],["15.5万円以下"],["16万円以下"],["16.5万円以下"],["17万円以下"],["17.5万円以下"],["18万円以下"],["18.5万円以下"],["19万円以下"],["19.5万円以下"],["20万円以下"]]
             .selectunit-optio
               %ul.option-list
+                - checked_rent_options = @condition.rent_option.delete("\"[] ").split(',')
                 - %w(管理費・共益費込み 駐車場代込み 礼金なし 敷金・保証金なし 初期費用カード決済可 家賃カード決済可).each.with_index do |rent_option|
                   %li
-                    = f.check_box :rent_option, {multiple: true}, rent_option, nil
+                    = f.check_box :rent_option, {multiple: true,  checked: checked_rent_options.include?(rent_option)}, rent_option, nil
                     = rent_option
         %tr
           %th.property_view_table-title
@@ -44,25 +50,27 @@
                 = f.radio_button :minute, '20分以内'
                 = f.label :minute, "20分以内"
               %li
-                = f.radio_button :minute, '指定なし', {checked: true}
+                = f.radio_button :minute, '指定なし'
                 = f.label :minute, "指定なし"
         %tr
           %th.property_view_table-title
             = f.label '間取りタイプ'
           %td.property_view_table-body
             %ul.option-list
+              - checked_madoris = @condition.madori.delete("\"[] ").split(',')
               - %w(ワンルーム 1K 1DK 1LDK 2K 2DK 2LDK 3K 3DK 3LDK 4K 4DK 4LDK 5K以上).each.with_index do |madori|
                 %li
-                  = f.check_box :madori, {multiple: true}, madori, nil
+                  = f.check_box :madori, {multiple: true, checked: checked_madoris.include?(madori)}, madori, nil
                   = madori
         %tr
           %th.property_view_table-title
             = f.label '建物種別'
           %td.property_view_table-body
             %ul.option-list
-              - %w(マンション アパート 一戸建て・その他).each.with_index do |building|
+              - checked_buildings = @condition.building.delete("\"[] ").split(',')
+              - %w(マンション アパート 一戸建て・その他).each.with_index do |building, i|
                 %li
-                  = f.check_box :building, {multiple: true}, building, nil
+                  = f.check_box :building, {multiple: true, checked: checked_buildings.include?(building)}, building, nil
                   = building
         %tr
           %th.property_view_table-title
@@ -100,7 +108,7 @@
                 = f.radio_button :completion, '30年以内'
                 = f.label :completion, "30年以内"
               %li
-                = f.radio_button :completion, '指定しない', {checked: true}
+                = f.radio_button :completion, '指定しない'
                 = f.label :completion, "指定しない"
         %tr
           %th.property_view_table-title

@@ -15,11 +15,7 @@ Rails.application.routes.draw do
   resources :emails
 
   resources :clients do
-    resources :conditions, only: [:create] do
-      collection do
-        get :complete
-      end
-    end
+    resources :conditions, only: [:create]
   end
   resources :buildings do
     resources :rooms, only: [:create]

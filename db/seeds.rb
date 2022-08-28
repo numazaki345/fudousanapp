@@ -18,7 +18,8 @@ User.create!(
     prefectures: "東京都",
     city: "港区",
     town_name: "六本木3丁目2-1",
-    transportation: "六本木一丁目駅徒歩1分",
+    station: "六本木一丁目駅",
+    station_minute: "10",
     completion: '10',
     floor_height: "10",
     building_type: "マンション",
@@ -44,7 +45,7 @@ end
   Client.create!(
    # n + 1で数字が重複しないようにする
    name: "テストユーザー#{n + 1}",
-   email: "test@example.com",
+   email: "test@user#{n + 1}.com",
  )
 end
 

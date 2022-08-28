@@ -12,9 +12,10 @@ class ConditionsController < ApplicationController
 
     if @condition.save
       if current_user
-        redirect_to clients_url
+        redirect_to clients_url, notice: "お客様情報を登録しました"
       else
-        redirect_to complete_client_conditions_path
+        redirect_to @condition, notice: "お客様情報を登録しました。
+        ３営業日以内にお客様のメールアドレス宛に弊社から物件の提案をいたます。"
       end
     else
       render 'clients/show'
@@ -28,7 +29,11 @@ class ConditionsController < ApplicationController
   def update
     condition = Condition.find(params[:id])
     condition.update!(condition_params)
-    redirect_to clients_url, notice: "お客様情報を更新しました"
+    if current_user
+      redirect_to clients_url, notice: "お客様情報を更新しました"
+    else
+      redirect_to condition, notice: "お客様情報を更新しました"
+    end
   end
 
   private

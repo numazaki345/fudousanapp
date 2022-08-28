@@ -5,6 +5,10 @@ class BuildingsController < ApplicationController
       @q = Building.all.includes(:rooms).latest.ransack(params[:q])
     elsif 'old' == params[:keyword]
       @q = Building.all.includes(:rooms).old.ransack(params[:q])
+    elsif 'short' == params[:keyword]
+      @q = Building.all.includes(:rooms).short.ransack(params[:q])
+    elsif 'long' == params[:keyword]
+      @q = Building.all.includes(:rooms).long.ransack(params[:q])
     elsif 'high' == params[:keyword]
       @q = Building.all.includes(:rooms).order("rooms.rent desc").ransack(params[:q])
     elsif 'low' == params[:keyword]
@@ -51,6 +55,6 @@ class BuildingsController < ApplicationController
 
   private
   def building_params
-    params.require(:building).permit(:name, :zipcode, :prefectures, :image, :transportation, :completion, :floor_height, :building_type, :balcony_type, :structure_type, :city, :town_name)
+    params.require(:building).permit(:name, :zipcode, :prefectures, :image, :station, :station_minute, :completion, :floor_height, :building_type, :balcony_type, :structure_type, :city, :town_name)
   end
 end
