@@ -1,24 +1,27 @@
-# README
+# 不動産のwebアプリ
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 使い方
 
-Things you may want to cover:
+このアプリケーションを動かす場合は、まずはリポジトリを手元にクローンしてください。
+その後、dockerコマンドでビルドを行ってください。
 
-* Ruby version
+```
+$ docker-compose build
+```
 
-* System dependencies
+その後、データベースへのマイグレーションを実行します。
 
-* Configuration
+```
+$ docker-compose run web rails db:migrate
+```
 
-* Database creation
+マイグレーションを実行したらdockerを立ち上げます。
+```
+$ docker-compose up
+```
 
-* Database initialization
+ローカル
+http://localhost:3000/
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+メールの確認
+http://localhost:3000/letter_opener
