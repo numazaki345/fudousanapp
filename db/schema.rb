@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_20_010644) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_23_225806) do
   create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -46,7 +46,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_20_010644) do
     t.string "city", null: false
     t.string "town_name", null: false
     t.string "name", null: false
-    t.string "transportation", null: false
+    t.string "station", null: false
+    t.integer "station_minute", null: false
     t.integer "completion"
     t.integer "floor_height"
     t.string "building_type", null: false
@@ -59,8 +60,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_20_010644) do
 
   create_table "clients", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "birth", null: false
-    t.string "gender", null: false
+    t.string "email", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "conditions", charset: "utf8mb4", force: :cascade do |t|
+    t.string "area", null: false
     t.string "rent_high"
     t.string "rent_low"
     t.string "rent_option"
@@ -68,7 +74,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_20_010644) do
     t.string "madori"
     t.string "building"
     t.string "completion"
-    t.string "conditions"
+    t.string "row"
+    t.bigint "client_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_conditions_on_client_id"
+  end
+
+  create_table "emails", charset: "utf8mb4", force: :cascade do |t|
+    t.string "email", null: false
+    t.text "building_url", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -101,5 +116,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_20_010644) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "conditions", "clients"
   add_foreign_key "rooms", "buildings"
 end

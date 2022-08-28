@@ -5,6 +5,8 @@ class Building < ApplicationRecord
 
   scope :latest, -> {order(created_at: :desc)}
   scope :old, -> {order(created_at: :asc)}
+  scope :short, -> {order(station_minute: :asc)}
+  scope :long, -> {order(station_minute: :desc)}
 
   validates :zipcode, allow_blank: true, numericality: {only_integer: true}, length: {maximum: 7}
   validates :completion, allow_blank: true, numericality: {only_integer: true}

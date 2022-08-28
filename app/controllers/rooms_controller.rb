@@ -1,4 +1,6 @@
 class RoomsController < ApplicationController
+  skip_before_action :authenticate_user!, only:[:show]
+
   def show
     @room = Room.find(params[:id])
     @images = @room.images
@@ -19,6 +21,17 @@ class RoomsController < ApplicationController
     room = Room.find(params[:id])
     room.destroy
     redirect_to buildings_path, notice: "部屋を削除しました"
+  end
+
+  def edit
+    @room = Room.find(params[:id])
+  end
+
+  def update
+    @room = Room.find(params[:id])
+    @building = @room.building
+    @room.update!(room_params)
+    redirect_to buildings_url, notice: "物件#{@building.name}を更新しました。"
   end
 
   private

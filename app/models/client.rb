@@ -1,6 +1,5 @@
 class Client < ApplicationRecord
-  validates :birth, allow_blank: true, numericality: {only_integer: true}
-  validates :gender, presence: true
-  validates :minute, presence: true
-  validates :completion, presence: true
+  has_one :condition, dependent: :destroy
+  validates :name, presence: true
+  validates :email, presence: true
 end

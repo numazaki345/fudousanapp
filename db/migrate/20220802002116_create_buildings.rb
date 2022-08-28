@@ -7,7 +7,8 @@ class CreateBuildings < ActiveRecord::Migration[7.0]
       t.string  :city,           null: false
       t.string  :town_name,      null: false
       t.string  :name,           null: false
-      t.string  :transportation, null: false
+      t.string  :station,        null: false
+      t.integer :station_minute, null: false
       t.integer :completion,     null: true
       t.integer :floor_height,   null: true
       t.string  :building_type,  null: false

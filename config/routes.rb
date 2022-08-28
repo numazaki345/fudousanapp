@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   devise_for :users, controllers: {
     # deviseの階層を編集した場合は適宜pathを編集してください
     omniauth_callbacks: "users/omniauth_callbacks"
@@ -8,14 +9,14 @@ Rails.application.routes.draw do
   end
   root to: 'buildings#index'
   resources :buildings
-  resources :clients do
-    collection do
-      post :confirm
-      get :complete
-    end
-  end
-  resources :rooms, only: [:show, :destroy]
+  resources :rooms
+  resources :clients
+  resources :conditions
+  resources :emails
 
+  resources :clients do
+    resources :conditions, only: [:create]
+  end
   resources :buildings do
     resources :rooms, only: [:create]
   end
