@@ -1,0 +1,114 @@
+<div class="building_property">
+  <div class="building_header">
+    <h2><%= @building.name %></h2>
+
+    <% if current_user && current_user.id == @building.user_id %>
+      <nav class="navbar navbar-expand-lg">
+        <div id="navbarSupportedContent" class="collapse navbar-collapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+              <a id="navbarDropdown" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                &#65049;
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <%= link_to '部屋編集', edit_room_path(@room), class: 'dropdown-item' %>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    <% end %>
+  </div>
+
+  <ul>
+    <li>
+      <% @images.each do |image| %>
+        <%= image_tag(image, width: 180, height: 100) %>
+      <% end %>
+    </li>
+  </ul>
+
+  <div class="property_view_table">
+    <table class="property_view_table">
+      <tbody>
+        <tr>
+          <th class="property_view_table-title">所在地</th>
+          <td class="property_view_table-body" colspan="3">
+            <%= @building.prefectures + @building.city + @building.town_name %>
+          </td>
+        </tr>
+        <tr>
+          <th class="property_view_table-title">交通情報</th>
+          <td class="property_view_table-body" colspan="3">
+            <%= @building.station %>
+          </td>
+        </tr>
+        <tr>
+          <th class="property_view_table-title">築年数</th>
+          <td class="property_view_table-body">
+            <%= @building.completion.to_s + '年' %>
+          </td>
+          <th class="property_view_table-title">向き</th>
+          <td class="property_view_table-body">
+            <%= @building.balcony_type %>
+          </td>
+        </tr>
+        <tr>
+          <th class="property_view_table-title">建物種別</th>
+          <td class="property_view_table-body">
+            <%= @building.building_type %>
+          </td>
+          <th class="property_view_table-title">建物構造</th>
+          <td class="property_view_table-body">
+            <%= @building.structure_type %>
+          </td>
+        </tr>
+        <tr>
+          <th class="property_view_table-title">所在階</th>
+          <td class="property_view_table-body">
+            <%= @room.floor.to_s + '階' %>
+          </td>
+          <th class="property_view_table-title">階建</th>
+          <td class="property_view_table-body">
+            <%= @building.floor_height.to_s + '階建' %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>物件概要</h3>
+
+  <div class="property_view_table">
+    <table class="property_view_table">
+      <tbody>
+        <tr>
+          <th class="property_view_table-title">賃料</th>
+          <td class="property_view_table-body" colspan="3">
+            <strong><%= @room.rent.to_s + '円' %></strong>
+          </td>
+        </tr>
+        <tr>
+          <th class="property_view_table-title">専有面積</th>
+          <td class="property_view_table-body">
+            <%= @room.square.to_s + "㎡" %>
+          </td>
+          <th class="property_view_table-title">部屋番号</th>
+          <td class="property_view_table-body">
+            <%= @room.room_number %>
+          </td>
+        </tr>
+        <tr>
+          <th class="property_view_table-title">間取り</th>
+          <td class="property_view_table-body">
+            <%= @room.madori %>
+          </td>
+          <th class="property_view_table-title">情報登録日</th>
+          <td class="property_view_table-body">
+            <%= @room.created_at.strftime('%Y/%m/%d') %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

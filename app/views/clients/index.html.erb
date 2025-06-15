@@ -1,0 +1,31 @@
+<% @clients.each do |client| %>
+  <div class="room_datail">
+    <ol>
+      <li>名前</li>
+      <li>メールアドレス</li>
+      <li>詳細</li>
+      <li>ユーザー編集</li>
+      <li>ユーザー削除</li>
+    </ol>
+
+    <ul>
+      <li><%= client.name %></li>
+      <li><%= client.email %></li>
+      <li>
+        <% if client.condition %>
+          <%= link_to '詳細を見る', client.condition %>
+        <% else %>
+          未登録
+        <% end %>
+      </li>
+      <li>
+        <%= link_to '編集', edit_client_path(client) %>
+      </li>
+      <li>
+        <%= button_to '削除', client, method: :delete, class: 'btn btn-danger btn-sm' %>
+      </li>
+    </ul>
+  </div>
+<% end %>
+
+<%= paginate @clients %>

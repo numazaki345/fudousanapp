@@ -1,0 +1,138 @@
+<h2 class="title_page">物件情報の入力</h2>
+
+<div class="property_view_table mt-5">
+  <%= form_with model: @building do |f| %>
+    <%= render 'layouts/error_messages', object: f.object %>
+    <table class="property_view_table">
+      <tbody>
+        <tr>
+          <th class="property_view_table-title" colspan="2">
+            <%= f.label '物件種別' %>
+          </th>
+          <td class="property_view_table-body">
+            <%= f.select(:building_type, [['マンション'], ['アパート'], ['一戸建て']], { prompt: "選択してください" }, required: true) %>
+          </td>
+        </tr>
+
+        <tr>
+          <th class="property_view_table-title" rowspan="5">
+            <%= f.label '物件所在地' %>
+          </th>
+          <th class="property_view_table-title">
+            <%= f.label '郵便番号(7桁)' %>
+          </th>
+          <td class="property_view_table-body">
+            <%= f.number_field :zipcode, class: 'form-control', maxlength: 7, placeholder: "1060032", type: "text" %>
+          </td>
+        </tr>
+
+        <tr>
+          <th class="property_view_table-title">
+            <%= f.label '都道府県' %>
+          </th>
+          <td class="property_view_table-body">
+            <%= f.text_field :prefectures, class: 'form-control', placeholder: "東京都", required: true, type: "text" %>
+          </td>
+        </tr>
+
+        <tr>
+          <th class="property_view_table-title">
+            <%= f.label '市区郡' %>
+          </th>
+          <td class="property_view_table-body">
+            <%= f.text_field :city, class: 'form-control', placeholder: "港区", required: true, type: "text" %>
+          </td>
+        </tr>
+
+        <tr>
+          <th class="property_view_table-title">
+            <%= f.label '町名' %>
+          </th>
+          <td class="property_view_table-body">
+            <%= f.text_field :town_name, class: 'form-control', placeholder: "六本木3丁目2-1", required: true, type: "text" %>
+          </td>
+        </tr>
+
+        <tr>
+          <th class="property_view_table-title">
+            <%= f.label '建物名' %>
+          </th>
+          <td class="property_view_table-body">
+            <%= f.text_field :name, class: 'form-control', placeholder: "住友不動産グランドタワー", required: true, type: "text" %>
+          </td>
+        </tr>
+
+        <tr>
+          <th class="property_view_table-title" colspan="2">
+            <%= f.label '最寄駅' %>
+          </th>
+          <td class="property_view_table-body">
+            <%= f.text_field :station, class: 'form-control', placeholder: "六本木一丁目駅", required: true, type: "text" %>
+          </td>
+        </tr>
+
+        <tr>
+          <th class="property_view_table-title" colspan="2">
+            <%= f.label '駅までの徒歩時間' %>
+          </th>
+          <td class="property_view_table-body">
+            <%= f.number_field :station_minute, class: 'form_style col-md-2', placeholder: "10", maxlength: 2, type: "text" %> 分
+          </td>
+        </tr>
+
+        <tr>
+          <th class="property_view_table-title" colspan="2">
+            <%= f.label '築年数' %>
+          </th>
+          <td class="property_view_table-body">
+            <%= f.number_field :completion, class: 'form_style col-md-2', placeholder: "10", maxlength: 2, type: "text" %> 年
+          </td>
+        </tr>
+
+        <tr>
+          <th class="property_view_table-title" colspan="2">
+            <%= f.label '階数' %>
+          </th>
+          <td class="property_view_table-body">
+            <%= f.number_field :floor_height, class: 'form_style col-md-2', placeholder: "10", maxlength: 2, type: "text" %> 階建
+          </td>
+        </tr>
+
+        <tr>
+          <th class="property_view_table-title" colspan="2">
+            <%= f.label '物件構造' %>
+          </th>
+          <td class="property_view_table-body">
+            <%= f.select(:structure_type, [['木造'], ['軽量鉄骨'], ['鉄筋コンクリート']], { prompt: "選択してください" }, required: true) %>
+          </td>
+        </tr>
+
+        <tr>
+          <th class="property_view_table-title" colspan="2">
+            <%= f.label '向き' %>
+          </th>
+          <td class="property_view_table-body">
+            <div class="col-md-2">
+              <%= f.text_field :balcony_type, class: 'form-control', placeholder: "北", type: "text" %>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <th class="property_view_table-title" colspan="2">
+            <%= f.label '外観画像' %>
+          </th>
+          <td class="property_view_table-body">
+            <%= f.file_field :image, class: 'form-control', required: true %>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="property_view_table-body" colspan="3">
+            <%= f.submit '登録する', class: 'btn btn-primary btn-block col-sm-12' %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
+</div>

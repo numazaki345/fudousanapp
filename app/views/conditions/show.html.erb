@@ -1,0 +1,88 @@
+<h2 class="title_page">
+  お客様情報
+</h2>
+
+<div class="property_view_table mt-5">
+  <table class="property_view_table">
+    <tbody>
+      <tr>
+        <th class="property_view_table-title" colspan="2">
+          名前
+        </th>
+        <td class="property_view_table-body">
+          <%= @client.name %>
+        </td>
+      </tr>
+      <tr>
+        <th class="property_view_table-title" rowspan="7">
+          希望条件
+        </th>
+        <th class="property_view_table-title">
+          エリア
+        </th>
+        <td class="property_view_table-body">
+          <%= @condition.area %>
+        </td>
+      </tr>
+      <tr>
+        <th class="property_view_table-title">
+          賃料
+        </th>
+        <td class="property_view_table-body">
+          <%= @condition.rent_low %> 〜 <%= @condition.rent_high %>
+          <% if @condition.rent_option %>
+            <div><%= @condition.rent_option.delete("\"[]") %></div>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <th class="property_view_table-title">
+          駅徒歩
+        </th>
+        <td class="property_view_table-body">
+          <%= @condition.minute %>
+        </td>
+      </tr>
+      <tr>
+        <th class="property_view_table-title">
+          間取りタイプ
+        </th>
+        <td class="property_view_table-body">
+          <% if @condition.madori %>
+            <%= @condition.madori.delete("\"[]") %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <th class="property_view_table-title">
+          建物種別
+        </th>
+        <td class="property_view_table-body">
+          <% if @condition.building %>
+            <%= @condition.building.delete("\"[]") %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <th class="property_view_table-title">
+          築後年数
+        </th>
+        <td class="property_view_table-body">
+          <%= @condition.completion %>
+        </td>
+      </tr>
+      <tr>
+        <th class="property_view_table-title">
+          その他条件
+        </th>
+        <td class="property_view_table-body">
+          <%= @condition.row %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="mt-5">
+  <%= link_to 'お客様情報を編集する', edit_condition_path(@condition) %>
+</div>

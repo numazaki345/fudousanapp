@@ -1,0 +1,71 @@
+<h2 class="title_page">部屋情報の編集</h2>
+
+<div class="property_view_table mt-5">
+  <%= form_with model: @room do |f| %>
+    <% if @room.present? && @room.errors.any? %>
+      <div class="alert alert-danger">
+        <ul class="mb-0">
+          <% @room.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <table class="property_view_table">
+      <tbody>
+        <tr>
+          <th class="property_view_table-title"><%= f.label '賃料' %></th>
+          <td class="property_view_table-body">
+            <%= f.number_field :rent, class: 'form-control', placeholder: "70000", required: true, maxlength: 6, type: "text" %>
+          </td>
+        </tr>
+
+        <tr>
+          <th class="property_view_table-title"><%= f.label '専有面積' %></th>
+          <td class="property_view_table-body">
+            <%= f.number_field :square, step: "0.1", class: 'form_style col-md-2', placeholder: "20", required: true, maxlength: 4, type: "text" %>㎡
+          </td>
+        </tr>
+
+        <tr>
+          <th class="property_view_table-title"><%= f.label '部屋番号' %></th>
+          <td class="property_view_table-body">
+            <div class="col-md-2">
+              <%= f.text_field :room_number, class: 'form-control', placeholder: "101", required: true, type: "text" %>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <th class="property_view_table-title"><%= f.label '所在階' %></th>
+          <td class="property_view_table-body">
+            <%= f.number_field :floor, class: 'form_style col-md-2', placeholder: "10", required: true, maxlength: 2, type: "text" %>階
+          </td>
+        </tr>
+
+        <tr>
+          <th class="property_view_table-title"><%= f.label '間取り' %></th>
+          <td class="property_view_table-body">
+            <div class="col-md-2">
+              <%= f.text_field :madori, class: 'form-control', placeholder: "1K", required: true, type: "text" %>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <th class="property_view_table-title"><%= f.label '部屋画像' %></th>
+          <td class="property_view_table-body">
+            <%= f.file_field :images, class: 'form-control', required: true, multiple: true %>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="property_view_table-body" colspan="3">
+            <%= f.submit '登録する', class: 'btn btn-primary btn-block col-sm-12' %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
+</div>

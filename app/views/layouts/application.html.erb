@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Myapp</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  </head>
+  <body>
+    <div class="app-title navbar navbar-expand-md navbar-light bg-light">
+      <div class="navbar-brand">不動産アプリ</div>
+      <ul class="navbar-nav ml-auto"></ul>
+      <div class="nav justify-content-end">
+        <% if current_user %>
+          <li class="nav-item"><%= link_to 'TOPページ', buildings_path, class: 'nav-link' %></li>
+          <li class="nav-item"><%= link_to '物件登録', new_building_path, class: 'nav-link' %></li>
+          <li class="nav-item"><%= link_to '顧客一覧', clients_path, class: 'nav-link' %></li>
+          <li class="nav-item"><%= link_to '顧客登録', new_client_path, class: 'nav-link' %></li>
+          <li class="nav-item"><%= link_to 'メール作成', new_email_path, class: 'nav-link' %></li>
+          <li class="nav-item"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'nav-link' %></li>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- jQuery, Popper.js, Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+
+    <div class="container">
+      <% if flash.notice.present? %>
+        <div class="alert alert-success"><%= flash.notice %></div>
+      <% end %>
+      <%= yield %>
+    </div>
+  </body>
+</html>

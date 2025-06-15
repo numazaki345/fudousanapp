@@ -1,0 +1,31 @@
+<h2 class="title_page">お客様情報の編集</h2>
+
+<div class="property_view_table mt-5">
+  <%= form_with model: @client do |f| %>
+    <%= render 'layouts/error_messages', object: f.object %>
+
+    <table class="property_view_table">
+      <tbody>
+        <tr>
+          <th class="property_view_table-title" colspan="1">
+            <%= f.label '名前' %>
+          </th>
+          <td class="property_view_table-body">
+            <%= f.text_field :name, class: 'form-control', placeholder: "田中太郎", required: "", type: "text" %>
+          </td>
+        </tr>
+
+        <tr>
+          <th class="property_view_table-title" colspan="1">
+            <%= f.label :email, 'メールアドレス' %>
+          </th>
+          <td class="property_view_table-body">
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <%= f.submit '登録する', class: 'btn btn-primary btn-block col-sm-12' %>
+  <% end %>
+</div>

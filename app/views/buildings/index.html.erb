@@ -1,0 +1,140 @@
+<%= search_form_for @q, url: buildings_path, class: 'mb-5' do |f| %>
+  <div class="form-group">
+    <div class="col-sm-10 mb-3">
+      <%= f.label "検索" %>
+      <%= f.search_field :name_or_prefectures_or_station_or_station_minute_eq, class: 'form-control', placeholder: "キーワードを入力" %>
+    </div>
+    <div class="col-sm-10 mb-3">
+      <%= f.label "賃料" %>
+      <div class="inline">
+        <%= f.number_field :rooms_rent_gteq, class: 'width-317 form_style' %> 以上〜
+        <%= f.number_field :rooms_rent_lt, class: 'width-317 form_style' %> 未満
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.submit class: 'btn btn-outline-primary' %>
+    </div>
+  </div>
+<% end %>
+
+<dl>
+  <dt>並び替え</dt>
+  <dd>
+    <%= form_with model: @building, url: @building, method: :get, local: true do |form| %>
+      <%= form.select :keyword, [['新しい順', 'latest'], ['古い順', 'old'], ['賃料が高い順', 'high'], ['賃料が低い順', 'low'], ['駅が近い順', 'short'], ['駅が遠い順', 'long']] %>
+      <%= form.submit 'save' %>
+    <% end %>
+  </dd>
+</dl>
+
+<% @buildings.each do |building| %>
+  <div class="building_property">
+    <div class="building_header">
+      <h2><%= building.name %></h2>
+      <% if current_user.id == building.user_id %>
+        <nav class="navbar navbar-expand-lg">
+          <div id="navbarSupportedContent" class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item dropdown">
+                <a id="navbarDropdown" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">&#65049;</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <%= link_to '部屋追加', building, class: 'dropdown-item' %>
+                  <div class="dropdown-divider"></div>
+                  <%= link_to '物件編集', edit_building_path(building), class: 'dropdown-item' %>
+                  <%= button_to '物件削除', building, method: :delete, class: 'dropdown-item' %>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      <% end %>
+    </div>
+
+    <div class="building_detail">
+      <%= image_tag building.image, size: '320x240' if building.image.attached? %>
+      <ul>
+        <li>
+          <dl>
+            <dt>住所</dt>
+            <dd><%= building.prefectures + building.city + building.town_name %></dd>
+          </dl>
+        </li>
+        <li>
+          <dl>
+            <dt>最寄</dt>
+            <dd><%= building.station %></dd>
+          </dl>
+        </li>
+        <li>
+          <dl>
+            <dt>徒歩</dt>
+            <dd><%= "#{building.station_minute}分" %></dd>
+          </dl>
+        </li>
+        <% if building.completion.present? %>
+          <li>
+            <dl>
+              <dt>築年</dt>
+              <dd><%= "#{building.completion}年" %></dd>
+            </dl>
+          </li>
+        <% end %>
+        <% if building.floor_height.present? %>
+          <li>
+            <dl>
+              <dt>階数</dt>
+              <dd><%= "#{building.floor_height}階建" %></dd>
+            </dl>
+          </li>
+        <% end %>
+        <li>
+          <dl>
+            <dt>種別</dt>
+            <dd><%= building.building_type %></dd>
+          </dl>
+        </li>
+        <li>
+          <dl>
+            <dt>構造</dt>
+            <dd><%= building.structure_type %></dd>
+          </dl>
+        </li>
+        <% if building.balcony_type.present? %>
+          <li>
+            <dl>
+              <dt>向き</dt>
+              <dd><%= building.balcony_type %></dd>
+            </dl>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="room_datail">
+      <ol>
+        <li>賃料</li>
+        <li>間取り</li>
+        <li>専有面積</li>
+        <li>所在階</li>
+        <li>詳細</li>
+        <% if current_user.id == building.user_id %>
+          <li>部屋削除</li>
+        <% end %>
+      </ol>
+      <% building.rooms.each do |room| %>
+        <ul>
+          <li><strong><%= "#{room.rent}円" %></strong></li>
+          <li><%= room.madori %></li>
+          <li><%= "#{room.square}㎡" %></li>
+          <li><%= "#{room.floor}階" %></li>
+          <li><%= link_to '詳細を見る', room %></li>
+          <% if current_user.id == building.user_id %>
+            <li><%= button_to '削除', room, method: :delete, class: 'btn btn-danger btn-sm' %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<%= paginate @buildings %>
