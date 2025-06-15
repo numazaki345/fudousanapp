@@ -20,9 +20,9 @@
 <dl>
   <dt>並び替え</dt>
   <dd>
-    <%= form_with model: @building, url: @building, method: :get, local: true do |form| %>
-      <%= form.select :keyword, [['新しい順', 'latest'], ['古い順', 'old'], ['賃料が高い順', 'high'], ['賃料が低い順', 'low'], ['駅が近い順', 'short'], ['駅が遠い順', 'long']] %>
-      <%= form.submit 'save' %>
+    <%= form_with url: buildings_path, method: :get, scope: :q, local: true do |form| %>
+      <%= form.select :s, [['新しい順', 'created_at desc'], ['古い順', 'created_at asc'], ['賃料が高い順', 'rooms_rent desc'], ['賃料が低い順', 'rooms_rent asc'], ['駅が近い順', 'station_minute asc'], ['駅が遠い順', 'station_minute desc']] %>
+      <%= form.submit '並び替え' %>
     <% end %>
   </dd>
 </dl>

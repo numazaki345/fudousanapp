@@ -10,7 +10,7 @@ class CreateConditions < ActiveRecord::Migration[7.0]
       t.string      :building
       t.string      :completion
       t.string      :row
-      t.references  :client,    null: false, foreign_key: true
+      t.references  :client, null: false, foreign_key: true
 
       t.timestamps
     end

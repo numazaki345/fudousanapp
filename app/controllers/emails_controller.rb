@@ -8,13 +8,14 @@ class EmailsController < ApplicationController
 
     if @email.save
       ClientMailer.with(email: @email).building_email.deliver_now
-      redirect_to clients_path, notice: "メールをを送信しました。"
+      redirect_to clients_path, notice: 'メールをを送信しました。'
     else
       render :new
     end
   end
 
   private
+
   def email_params
     params.require(:email).permit(:email, :building_url)
   end

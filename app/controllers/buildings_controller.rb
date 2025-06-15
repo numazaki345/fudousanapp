@@ -1,21 +1,6 @@
 class BuildingsController < ApplicationController
-
   def index
-    if 'latest' == params[:keyword]
-      @q = Building.all.includes(:rooms).latest.ransack(params[:q])
-    elsif 'old' == params[:keyword]
-      @q = Building.all.includes(:rooms).old.ransack(params[:q])
-    elsif 'short' == params[:keyword]
-      @q = Building.all.includes(:rooms).short.ransack(params[:q])
-    elsif 'long' == params[:keyword]
-      @q = Building.all.includes(:rooms).long.ransack(params[:q])
-    elsif 'high' == params[:keyword]
-      @q = Building.all.includes(:rooms).order("rooms.rent desc").ransack(params[:q])
-    elsif 'low' == params[:keyword]
-      @q = Building.all.includes(:rooms).order("rooms.rent").ransack(params[:q])
-    else
-      @q = Building.all.includes(:rooms).latest.ransack(params[:q])
-    end
+    @q = filter_buildings
     @buildings = @q.result(distinct: true).page(params[:page]).per(10)
   end
 
@@ -54,7 +39,47 @@ class BuildingsController < ApplicationController
   end
 
   private
+
+  def buildings
+    @buildings ||= Building.all.preload(:rooms)
+  end
+
+  def filter_buildings
+    case params[:keyword]
+    when 'latest'
+      buildings.latest.ransack(params[:q])
+    when 'old'
+      buildings.old.ransack(params[:q])
+    when 'short'
+      buildings.short.ransack(params[:q])
+    when 'long'
+      buildings.long.ransack(params[:q])
+    when 'high'
+      buildings.order('rooms.rent desc').ransack(params[:q])
+    when 'low'
+      buildings.order('rooms.rent').ransack(params[:q])
+    else
+      buildings.latest.ransack(params[:q])
+    end
+  end
+
   def building_params
-    params.require(:building).permit(:name, :zipcode, :prefectures, :image, :station, :station_minute, :completion, :floor_height, :building_type, :balcony_type, :structure_type, :city, :town_name)
+    params
+      .require(:building)
+      .permit(
+        :name,
+        :zipcode,
+        :prefectures,
+        :image,
+        :station,
+        :station_minute,
+        :completion,
+        :floor_height,
+        :building_type,
+        :balcony_type,
+        :structure_type,
+        :city,
+        :town_name
+      )
   end
 end

@@ -1,5 +1,5 @@
 class RoomsController < ApplicationController
-  skip_before_action :authenticate_user!, only:[:show]
+  skip_before_action :authenticate_user!, only: [:show]
 
   def show
     @room = Room.find(params[:id])
@@ -11,7 +11,7 @@ class RoomsController < ApplicationController
     @building = Building.find(params[:building_id])
     @room = @building.rooms.new(room_params)
     if @room.save
-      redirect_to buildings_url, notice: "部屋を登録しました。"
+      redirect_to buildings_url, notice: '部屋を登録しました。'
     else
       render 'buildings/show'
     end
@@ -20,7 +20,7 @@ class RoomsController < ApplicationController
   def destroy
     room = Room.find(params[:id])
     room.destroy
-    redirect_to buildings_path, notice: "部屋を削除しました"
+    redirect_to buildings_path, notice: '部屋を削除しました'
   end
 
   def edit
@@ -35,6 +35,7 @@ class RoomsController < ApplicationController
   end
 
   private
+
   def room_params
     params.require(:room).permit(:rent, :square, :room_number, :floor, :madori, images: [])
   end

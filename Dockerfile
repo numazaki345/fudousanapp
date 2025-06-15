@@ -1,17 +1,31 @@
-FROM ruby:3.1
+FROM ruby:3.3.1
+ARG RUBYGEMS_VERSION=3.3.20
 
-RUN mkdir /myapp
-WORKDIR /myapp
-COPY Gemfile /myapp/Gemfile
-COPY Gemfile.lock /myapp/Gemfile.lock
+# 作業ディレクトリを指定
+WORKDIR /sample_rails
+
+# ホストのGemfileをコンテナ内の作業ディレクトリにコピー
+COPY Gemfile Gemfile.lock /sample_rails/
+
+# bundle installを実行
 RUN bundle install
-COPY . /myapp
 
-# Add a script to be executed every time the container starts.
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+  && apt-get update -qq \
+  && apt-get install -y nodejs \
+  && npm install -g yarn
+
+# ホストのファイルをコンテナ内の作業ディレクトリにコピー
+COPY . /sample_rails/
+
+# entrypoint.shをコンテナ内の作業ディレクトリにコピー
 COPY entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
-EXPOSE 3000
 
-# Start the main process.
+# entrypoint.shの実行権限を付与
+RUN chmod +x /usr/bin/entrypoint.sh
+
+# コンテナ起動時にentrypoint.shを実行するように設定
+ENTRYPOINT ["entrypoint.sh"]
+
+# コンテナ起動時に実行するコマンドを指定
 CMD ["rails", "server", "-b", "0.0.0.0"]

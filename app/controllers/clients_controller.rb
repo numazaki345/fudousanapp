@@ -1,8 +1,9 @@
 class ClientsController < ApplicationController
-  skip_before_action :authenticate_user!, only:[:show]
+  skip_before_action :authenticate_user!, only: [:show]
 
   def index
-    @clients = Client.all.includes(:condition).page(params[:page]).per(10).order("created_at desc")
+    @clients = \
+      Client.all.preload(:condition).page(params[:page]).per(10).order('created_at desc')
   end
 
   def new
@@ -41,6 +42,7 @@ class ClientsController < ApplicationController
   end
 
   private
+
   def client_params
     params.require(:client).permit(:name, :email)
   end

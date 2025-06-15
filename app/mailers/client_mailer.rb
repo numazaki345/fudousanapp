@@ -5,7 +5,7 @@ class ClientMailer < ApplicationMailer
     @client = params[:client]
     mail(
       subject: 'お客様情報登録',
-      to: @client.email,
+      to: @client.email
     )
   end
 
@@ -13,7 +13,7 @@ class ClientMailer < ApplicationMailer
     @email = params[:email]
     mail(
       subject: 'ご紹介物件',
-      to: @email.email,
+      to: @email.email
     )
   end
 end
