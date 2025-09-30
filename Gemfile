@@ -63,6 +63,8 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
   gem 'letter_opener_web'
+  gem 'ridgepole', '3.0.1'
+  gem 'annotaterb', '4.15.0'
 end
 
 group :test do
@@ -85,3 +87,5 @@ gem 'omniauth-google-oauth2' # google認証
 gem 'pry', '>= 0.14.2'
 gem 'ransack' # 検索機能
 gem 'rubocop'
+gem 'ulid', '1.4.0'
+gem 'diffy', '3.4.4'

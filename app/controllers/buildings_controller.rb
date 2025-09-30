@@ -1,6 +1,23 @@
 class BuildingsController < ApplicationController
+  PERMIT_PARAMS = %i[
+    name
+    image
+    station
+    station_minute
+    completion
+    floor_height
+    building_type
+    balcony_type
+    structure_type
+    zipcode
+    prefectures
+    city
+    town_name
+  ].freeze
+  private_constant :PERMIT_PARAMS
+
   def index
-    @q = filter_buildings
+    @q = filter_buildings.ransack(params[:q])
     @buildings = @q.result(distinct: true).page(params[:page]).per(10)
   end
 
@@ -13,10 +30,10 @@ class BuildingsController < ApplicationController
   end
 
   def create
-    @building = current_user.buildings.new(building_params)
+    @form = BuildForm.new(params: create_params)
 
-    if @building.save
-      redirect_to buildings_url, notice: "物件#{@building.name}を登録しました。"
+    if @form.save
+      redirect_to buildings_url, notice: "物件#{@form.name}を登録しました。"
     else
       render :new
     end
@@ -46,40 +63,64 @@ class BuildingsController < ApplicationController
 
   def filter_buildings
     case params[:keyword]
-    when 'latest'
-      buildings.latest.ransack(params[:q])
-    when 'old'
-      buildings.old.ransack(params[:q])
-    when 'short'
-      buildings.short.ransack(params[:q])
-    when 'long'
-      buildings.long.ransack(params[:q])
-    when 'high'
-      buildings.order('rooms.rent desc').ransack(params[:q])
-    when 'low'
-      buildings.order('rooms.rent').ransack(params[:q])
+    when 'old' then buildings.old
+    when 'short' then buildings.short
+    when 'long' then buildings.long
+    when 'high' then buildings.order('rooms.rent desc')
+    when 'low' then buildings.order('rooms.rent')
     else
-      buildings.latest.ransack(params[:q])
+      buildings.latest
     end
   end
 
-  def building_params
-    params
+  def create_params
+    snake_case_params
       .require(:building)
-      .permit(
-        :name,
-        :zipcode,
-        :prefectures,
-        :image,
-        :station,
-        :station_minute,
-        :completion,
-        :floor_height,
-        :building_type,
-        :balcony_type,
-        :structure_type,
-        :city,
-        :town_name
+      .permit(PERMIT_PARAMS)
+      .reverse_merge(user_id: current_user.id)
+  end
+
+  class BuildForm
+    include ActiveModel::Validations
+
+    def initialize(params:)
+      @params = params
+    end
+
+    def save
+      ActiveRecord::Base.transaction do
+        building.save
+        address.save
+      end
+
+      errors.empty?
+    end
+
+    def name = building.name
+
+    private
+
+    attr_reader :params
+
+    def building
+      @building ||= Building.new(
+        **params.except(
+          :zipcode,
+          :prefectures,
+          :city,
+          :town_name
+        )
       )
+    end
+
+    def address
+      Address.new(
+        building:,
+        zipcode: params[:zipcode],
+        prefectures: params[:prefectures],
+        city: params[:city],
+        town_name: params[:town_name],
+      )
+    end
   end
 end

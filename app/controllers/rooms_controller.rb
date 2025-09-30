@@ -1,6 +1,18 @@
 class RoomsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show]
 
+  PERMIT_PARAMS = [
+    :rent,
+    :square,
+    :room_number,
+    :floor,
+    :madori,
+    {
+      images: []
+    }
+  ].freeze
+  private_constant :PERMIT_PARAMS
+
   def show
     @room = Room.find(params[:id])
     @images = @room.images
@@ -37,6 +49,6 @@ class RoomsController < ApplicationController
   private
 
   def room_params
-    params.require(:room).permit(:rent, :square, :room_number, :floor, :madori, images: [])
+    params.require(:room).permit(**PERMIT_PARAMS)
   end
 end

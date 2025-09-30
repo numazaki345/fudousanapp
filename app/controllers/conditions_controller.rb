@@ -1,8 +1,22 @@
 class ConditionsController < ApplicationController
   skip_before_action :authenticate_user!
 
+  PERMIT_PARAMS = [
+    :area,
+    :rent_high,
+    :rent_low,
+    :row,
+    :completion,
+    :minute,
+    {
+      rent_option: [],
+      madori: [],
+      building: []
+    }
+  ].freeze
+
   def show
-    @condition = Condition.find(params[:id])
+    @condition = condition
     @client = @condition.client
   end
 
@@ -22,12 +36,9 @@ class ConditionsController < ApplicationController
     end
   end
 
-  def edit
-    @condition = Condition.find(params[:id])
-  end
+  def edit = @condition = condition
 
   def update
-    condition = Condition.find(params[:id])
     condition.update!(condition_params)
     if current_user
       redirect_to clients_url, notice: 'お客様情報を更新しました'
@@ -38,8 +49,11 @@ class ConditionsController < ApplicationController
 
   private
 
+  def condition
+    @condition ||= Condition.find(params[:id])
+  end
+
   def condition_params
-    params.require(:condition).permit(:area, :rent_high, :rent_low, :row, :completion, :minute, rent_option: [],
-                                                                                                madori: [], building: [])
+    params.require(:condition).permit(PERMIT_PARAMS)
   end
 end

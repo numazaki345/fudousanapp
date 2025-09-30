@@ -12,7 +12,7 @@
             <%= f.label 'エリア' %>
           </th>
           <td class="property_view_table-body">
-            <%= f.text_field :area, class: 'form-control', placeholder: '東京都渋谷区', type: 'text' %>
+            <%= f.text_field :area, class: 'form-control', placeholder: "東京都渋谷区", type: "text" %>
           </td>
         </tr>
 
@@ -22,15 +22,16 @@
           </th>
           <td class="property_view_table-body width-380">
             <div class="selectunit m-lefl-30">
-              <%= f.select :rent_low, [...省略...] %> 〜
-              <%= f.select :rent_high, [...省略...] %>
+              <%= f.select :rent_low, [["下限なし"],["3万円以上"],["3.5万円以上"],["4万円以上"],["4.5万円以上"],["5万円以上"],["5.5万円以上"],["6万円以上"],["6.5万円以上"],["7万円以上"],["7.5万円以上"],["8万円以上"],["8.5万円以上"],["9万円以上"],["9.5万円以上"],["10万円以上"],["10.5万円以上"],["11万円以上"],["11.5万円以上"],["12万円以上"],["12.5万円以上"],["13万円以上"],["13.5万円以上"],["14万円以上"],["14.5万円以上"],["15万円以上"],["15.5万円以上"],["16万円以上"],["16.5万円以上"],["17万円以上"],["17.5万円以上"],["18万円以上"],["18.5万円以上"],["19万円以上"],["19.5万円以上"],["20万円以上"]] %>
+              〜
+              <%= f.select :rent_high, [["上限なし"],["3万円以下"],["3.5万円以下"],["4万円以下"],["4.5万円以下"],["5万円以下"],["5.5万円以下"],["6万円以下"],["6.5万円以下"],["7万円以下"],["7.5万円以下"],["8万円以下"],["8.5万円以下"],["9万円以下"],["9.5万円以下"],["10万円以下"],["10.5万円以下"],["11万円以下"],["11.5万円以下"],["12万円以下"],["12.5万円以下"],["13万円以下"],["13.5万円以下"],["14万円以下"],["14.5万円以下"],["15万円以下"],["15.5万円以下"],["16万円以下"],["16.5万円以下"],["17万円以下"],["17.5万円以下"],["18万円以下"],["18.5万円以下"],["19万円以下"],["19.5万円以下"],["20万円以下"]] %>
             </div>
             <div class="selectunit-optio">
               <ul class="option-list">
-                <% checked_rent_options = @condition.rent_option.delete('"[] ').split(',') %>
+                <% checked_rent_options = (@condition.rent_option || "").delete("\"[] ").split(',') %>
                 <% %w(管理費・共益費込み 駐車場代込み 礼金なし 敷金・保証金なし 初期費用カード決済可 家賃カード決済可).each do |rent_option| %>
                   <li>
-                    <%= f.check_box :rent_option, { multiple: true, checked: checked_rent_options.include?(rent_option) }, rent_option, nil %>
+                    <%= f.check_box :rent_option, {multiple: true, checked: checked_rent_options.include?(rent_option)}, rent_option, nil %>
                     <%= rent_option %>
                   </li>
                 <% end %>
@@ -45,10 +46,10 @@
           </th>
           <td class="property_view_table-body">
             <ul class="option-list">
-              <% %w(1分以内 5分以内 7分以内 10分以内 15分以内 20分以内 指定なし).each do |time| %>
+              <% ['1分以内','5分以内','7分以内','10分以内','15分以内','20分以内','指定なし'].each do |m| %>
                 <li>
-                  <%= f.radio_button :minute, time %>
-                  <%= f.label :minute, time %>
+                  <%= f.radio_button :minute, m %>
+                  <%= f.label :minute, m %>
                 </li>
               <% end %>
             </ul>
@@ -61,10 +62,10 @@
           </th>
           <td class="property_view_table-body">
             <ul class="option-list">
-              <% checked_madoris = @condition.madori.delete('"[] ').split(',') %>
+              <% checked_madoris = (@condition.madori || "").delete("\"[] ").split(',') %>
               <% %w(ワンルーム 1K 1DK 1LDK 2K 2DK 2LDK 3K 3DK 3LDK 4K 4DK 4LDK 5K以上).each do |madori| %>
                 <li>
-                  <%= f.check_box :madori, { multiple: true, checked: checked_madoris.include?(madori) }, madori, nil %>
+                  <%= f.check_box :madori, {multiple: true, checked: checked_madoris.include?(madori)}, madori, nil %>
                   <%= madori %>
                 </li>
               <% end %>
@@ -78,10 +79,10 @@
           </th>
           <td class="property_view_table-body">
             <ul class="option-list">
-              <% checked_buildings = @condition.building.delete('"[] ').split(',') %>
+              <% checked_buildings = (@condition.building || "").delete("\"[] ").split(',') %>
               <% %w(マンション アパート 一戸建て・その他).each do |building| %>
                 <li>
-                  <%= f.check_box :building, { multiple: true, checked: checked_buildings.include?(building) }, building, nil %>
+                  <%= f.check_box :building, {multiple: true, checked: checked_buildings.include?(building)}, building, nil %>
                   <%= building %>
                 </li>
               <% end %>
@@ -95,10 +96,10 @@
           </th>
           <td class="property_view_table-body">
             <ul class="option-list">
-              <% %w(新築 1年以内 3年以内 5年以内 7年以内 10年以内 15年以内 20年以内 25年以内 30年以内 指定しない).each do |year| %>
+              <% ['新築','1年以内','3年以内','5年以内','7年以内','10年以内','15年以内','20年以内','25年以内','30年以内','指定しない'].each do |c| %>
                 <li>
-                  <%= f.radio_button :completion, year %>
-                  <%= f.label :completion, year %>
+                  <%= f.radio_button :completion, c %>
+                  <%= f.label :completion, c %>
                 </li>
               <% end %>
             </ul>
@@ -110,7 +111,7 @@
             <%= f.label 'その他条件' %>
           </th>
           <td class="property_view_table-body">
-            <%= f.text_field :row, class: 'form-control', placeholder: 'エアコン付き、ペット可', type: 'text' %>
+            <%= f.text_field :row, class: 'form-control', placeholder: "エアコン付き、ペット可", type: "text" %>
           </td>
         </tr>
       </tbody>

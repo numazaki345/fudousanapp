@@ -74,6 +74,7 @@ GEM
       uri (>= 0.13.1)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
+    annotaterb (4.15.0)
     ast (2.4.3)
     base64 (0.3.0)
     bcrypt (3.1.20)
@@ -115,6 +116,7 @@ GEM
     devise-i18n (1.13.0)
       devise (>= 4.9.0)
       rails-i18n
+    diffy (3.4.4)
     dotenv (3.1.8)
     dotenv-rails (3.1.8)
       dotenv (= 3.1.8)
@@ -129,7 +131,7 @@ GEM
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
-    faraday-net_http (3.4.0)
+    faraday-net_http (3.4.1)
       net-http (>= 0.5.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
@@ -344,7 +346,11 @@ GEM
       actionpack (>= 5.2)
       railties (>= 5.2)
     rexml (3.4.1)
-    rubocop (1.76.1)
+    ridgepole (3.0.1)
+      activerecord (>= 6.1, < 8.1)
+      diffy
+      logger
+    rubocop (1.76.2)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -352,7 +358,7 @@ GEM
       parser (>= 3.3.0.2)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 2.9.3, < 3.0)
-      rubocop-ast (>= 1.45.0, < 2.0)
+      rubocop-ast (>= 1.45.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 4.0)
     rubocop-ast (1.45.1)
@@ -392,6 +398,7 @@ GEM
       railties (>= 7.1.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    ulid (1.4.0)
     unicode-display_width (3.1.4)
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
@@ -430,6 +437,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  annotaterb (= 4.15.0)
   bootsnap
   bootstrap
   capybara
@@ -437,6 +445,7 @@ DEPENDENCIES
   debug
   devise
   devise-i18n
+  diffy (= 3.4.4)
   dotenv-rails
   erb2haml
   haml-rails
@@ -451,12 +460,14 @@ DEPENDENCIES
   puma (~> 6.0)
   rails (~> 8.0, >= 8.0.2)
   ransack
+  ridgepole (= 3.0.1)
   rubocop
   selenium-webdriver
   sprockets-rails
   stimulus-rails
   turbo-rails
   tzinfo-data
+  ulid (= 1.4.0)
   web-console
   webdrivers
 

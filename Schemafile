@@ -1,0 +1,182 @@
+ULID_LENGTH = 26
+
+create_table :active_storage_attachments,
+            charset: 'utf8mb4',
+            collation: 'utf8mb4_bin',
+            force: :cascade do |t|
+  t.string :name, null: false
+  t.references :record,
+              null: false,
+              polymorphic: true,
+              index: false,
+              type: :string
+  t.references :blob, null: false
+
+  t.datetime :created_at, precision: nil, null: false
+
+  t.index %i[record_type record_id name blob_id],
+          name: 'index_active_storage_attachments_uniqueness',
+          unique: true
+  t.foreign_key :active_storage_blobs, column: :blob_id
+end
+
+create_table :active_storage_blobs,
+            charset: 'utf8mb4',
+            collation: 'utf8mb4_bin',
+            force: :cascade do |t|
+  t.string :key, null: false
+  t.string :filename, null: false
+  t.string :content_type
+  t.text :metadata
+  t.string :service_name, null: false
+  t.bigint :byte_size, null: false
+  t.string :checksum, null: true
+  t.datetime :created_at, precision: nil, null: false
+
+  t.index [:key], unique: true
+end
+
+create_table :active_storage_variant_records,
+            charset: 'utf8mb4',
+            collation: 'utf8mb4_bin',
+            force: :cascade do |t|
+  t.belongs_to :blob, null: false, index: false
+  t.string :variation_digest, null: false
+
+  t.index %i[blob_id variation_digest],
+          name: 'index_active_storage_variant_records_uniqueness',
+          unique: true
+  t.foreign_key :active_storage_blobs, column: :blob_id
+end
+
+create_table :buildings,
+             charset: 'utf8mb4',
+             collation: 'utf8mb4_bin',
+             id: { type: :string, limit: ULID_LENGTH },
+             force: :cascade,
+             comment: '建物' do |t|
+  t.string "structure_type", null: false, comment: '構造種別'
+  t.string "name", null: false, comment: '建物名'
+  t.string "station", null: false, comment: '最寄り駅'
+  t.integer "station_minute", null: false, comment: '最寄り駅からの徒歩分数'
+  t.integer "completion", null: true, comment: '完成年'
+  t.integer "floor_height", null: true, comment: '階高'
+  t.string "building_type", null: false, comment: '建物種別'
+  t.string "balcony_type", null: true, comment: 'バルコニー種別'
+  t.bigint "user_id", null: false, comment: 'ユーザーID'
+  t.datetime :created_at, precision: nil, null: false
+  t.datetime :updated_at, precision: nil, null: false
+end
+
+create_table :addresses,
+             charset: 'utf8mb4',
+             collation: 'utf8mb4_bin',
+             primary_key: :building_id,
+             id: { type: :string, limit: ULID_LENGTH },
+             force: :cascade,
+             comment: '住所' do |t|
+  t.foreign_key :buildings,
+                name: :fk_addresses_on_building_id
+  t.integer "zipcode", null: true, comment: '郵便番号'
+  t.string "prefectures", null: false, comment: '都道府県'
+  t.string "city", null: false, comment: '市区町村'
+  t.string "town_name", null: false, comment: '町名'
+  t.datetime :created_at, precision: nil, null: false
+  t.datetime :updated_at, precision: nil, null: false
+end
+
+create_table :clients,
+             charset: 'utf8mb4',
+             collation: 'utf8mb4_bin',
+             id: { type: :string, limit: ULID_LENGTH },
+             force: :cascade,
+             comment: 'クライアント' do |t|
+  t.string "name", null: false, comment: '名前'
+  t.string "email", null: false, comment: 'メールアドレス'
+  t.datetime :created_at, precision: nil, null: false
+  t.datetime :updated_at, precision: nil, null: false
+end
+
+create_table :conditions,
+             charset: 'utf8mb4',
+             collation: 'utf8mb4_bin',
+             id: { type: :string, limit: ULID_LENGTH },
+             force: :cascade,
+             comment: '' do |t|
+  t.string "area", null: false, comment: 'エリア'
+  t.string "rent_high", null: true, comment: '家賃上限'
+  t.string "rent_low", null: true, comment: '家賃下限'
+  t.string "rent_option", null: true, comment: '家賃オプション'
+  t.string "minute", null: true, comment: '徒歩分数'
+  t.string "madori", null: true, comment: '間取り'
+  t.string "building", null: true, comment: '建物種別'
+  t.string "completion", null: true, comment: '完成年'
+  t.string "row", null: true, comment: '行'
+  t.references :client,
+    null: true,
+    index: true,
+    foreign_key: {
+      name: :fk_conditions_on_client_id
+    },
+    type: :string,
+    limit: ULID_LENGTH
+  t.datetime :created_at, precision: nil, null: false
+  t.datetime :updated_at, precision: nil, null: false
+end
+
+create_table :emails,
+             charset: 'utf8mb4',
+             collation: 'utf8mb4_bin',
+             id: { type: :string, limit: ULID_LENGTH },
+             force: :cascade,
+             comment: '' do |t|
+  t.string "email", null: false, comment: 'メールアドレス'
+  t.text "building_url", null: false, comment: '建物URL'
+  t.datetime :created_at, precision: nil, null: false
+  t.datetime :updated_at, precision: nil, null: false
+end
+
+create_table :rooms,
+             charset: 'utf8mb4',
+             collation: 'utf8mb4_bin',
+             id: { type: :string, limit: ULID_LENGTH },
+             force: :cascade,
+             comment: '部屋' do |t|
+  t.integer "rent", null: false, comment: '家賃'
+  t.integer "square", null: false, comment: '面積'
+  t.string "room_number", null: false, comment: '部屋番号'
+  t.string "madori", null: false, comment: '間取り'
+  t.integer "floor", null: false, comment: '階数'
+  t.references :building,
+               null: true,
+               index: true,
+               foreign_key: {
+                 name: :fk_rooms_on_building_id
+               },
+               type: :string,
+               limit: ULID_LENGTH
+  t.datetime :created_at, precision: nil, null: false
+  t.datetime :updated_at, precision: nil, null: false
+end
+
+create_table :users,
+             charset: 'utf8mb4',
+             collation: 'utf8mb4_bin',
+             force: :cascade,
+             comment: 'ユーザー' do |t|
+  t.string "email", null: false, comment: 'メールアドレス'
+  t.string "encrypted_password", null: false, comment: 'パスワード'
+  t.string "reset_password_token", null: true, comment: 'メールアドレスのリセットトークン'
+  t.datetime "reset_password_sent_at", null: true, comment: 'メールアドレスのリセット送信日時'
+  t.datetime "remember_created_at", null: true, comment: 'メールアドレスのリメンバー日時'
+  t.string "provider", null: true, comment: 'OAuthプロバイダー'
+  t.string "uid", null: true, comment: 'OAuthユーザーID'
+
+  t.datetime :created_at, precision: nil, null: false
+  t.datetime :updated_at, precision: nil, null: false
+
+  t.index %i[email], name: "index_users_on_email", unique: true
+  t.index %i[reset_password_token],
+          name: "index_users_on_reset_password_token",
+          unique: true
+end

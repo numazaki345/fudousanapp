@@ -34,7 +34,7 @@
         <tr>
           <th class="property_view_table-title">所在地</th>
           <td class="property_view_table-body" colspan="3">
-            <%= @building.prefectures + @building.city + @building.town_name %>
+            <%= @building.address.prefectures + @building.address.city + @building.address.town_name %>
           </td>
         </tr>
         <tr>
