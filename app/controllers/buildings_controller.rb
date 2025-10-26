@@ -58,7 +58,7 @@ class BuildingsController < ApplicationController
   private
 
   def buildings
-    @buildings ||= Building.all.preload(:rooms)
+    @buildings ||= Building.all.preload(:rooms, :address)
   end
 
   def filter_buildings

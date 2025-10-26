@@ -32,15 +32,29 @@ class Building < UlidRecord
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[
-      id name prefectures city town_name zipcode
-      station station_minute building_type structure_type
-      floor_height completion balcony_type user_id
-      created_at updated_at
+      id
+      name
+      station
+      station_minute
+      building_type
+      structure_type
+      floor_height
+      completion
+      balcony_type
+      user_id
+      created_at
+      updated_at
     ]
   end
 
   # Ransack: 検索を許可する関連
   def self.ransackable_associations(_auth_object = nil)
-    %w[rooms user image_attachment image_blob]
+    %w[
+    rooms
+    user
+    address
+    image_attachment
+    image_blob
+    ]
   end
 end
